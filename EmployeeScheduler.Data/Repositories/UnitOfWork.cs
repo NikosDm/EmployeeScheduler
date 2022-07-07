@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using EmployeeScheduler.Data.Database;
 using EmployeeScheduler.Models.Interfaces;
 
-namespace EmployeeScheduler.Data.Data;
+namespace EmployeeScheduler.Data.Repositories;
 public class UnitOfWork : IUnitOfWork
 {
     private readonly DataContext _context;

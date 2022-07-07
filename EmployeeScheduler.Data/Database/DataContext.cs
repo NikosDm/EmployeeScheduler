@@ -8,24 +8,18 @@ public class DataContext: DbContext
     public DataContext(DbContextOptions options): base(options) { }
     public DbSet<Skill> Skills { get; set; }
     public DbSet<Employee> Employees { get; set; }
-    public DbSet<SkillCategory> SkillCategories { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder) 
     {
         base.OnModelCreating(builder);
-
-        builder.Entity<SkillCategory>()
-            .HasKey(k => k.CategoryID);
         
         builder.Entity<Employee>()
-            .HasKey(k => k.EmployeeID);
+            .Property(x => x.EmployeeID)
+            .HasDefaultValueSql("NEWID()");
 
         builder.Entity<Skill>()
-            .HasOne(ur => ur.Category)
-            .WithOne(u => u.Skill)
-            .HasForeignKey<SkillCategory>(f => f.SkillID)
-            .IsRequired()
-            .OnDelete(DeleteBehavior.Cascade);
+            .Property(x => x.SkillID)
+            .HasDefaultValueSql("NEWID()");
         
         builder.Entity<EmployeeSkill>()
             .HasKey(es => new { es.EmployeeID, es.SkillID });

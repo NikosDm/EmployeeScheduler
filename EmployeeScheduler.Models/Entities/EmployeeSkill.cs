@@ -11,6 +11,5 @@ namespace EmployeeScheduler.Models.Entities
         public string EmployeeID { get; set; }
         public Skill Skill { get; set; }
         public string SkillID { get; set; }
-        public Double Rating { get; set; }
     }
 }
