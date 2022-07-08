@@ -28,12 +28,12 @@ public class DataContext: DbContext
             .HasOne(m => m.Employee)
             .WithMany(w => w.Skills)
             .HasForeignKey(k => k.EmployeeID)
-            .OnDelete(DeleteBehavior.NoAction);
+            .OnDelete(DeleteBehavior.ClientCascade);
 
         builder.Entity<EmployeeSkill>()
             .HasOne(m => m.Skill)
             .WithMany(w => w.EmployeeSkills)
             .HasForeignKey(k => k.SkillID)
-            .OnDelete(DeleteBehavior.NoAction);
+            .OnDelete(DeleteBehavior.ClientCascade);
     }
 }

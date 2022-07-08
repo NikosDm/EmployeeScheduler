@@ -131,4 +131,25 @@ public class EmployeeController : BaseApiController
 
         return _response;
     }
+    
+    /// <summary>
+    /// Action that deletes multiple employees
+    /// </summary>
+    /// <param name="employeeIDs">List of selected employee IDs which should be deleted</param>
+    [HttpDelete("DeleteMultipleEmployees")]
+    public async Task<ResponseDTO> DeleteMultipleEmployees([FromBody]IEnumerable<string> employeeIDs) 
+    {
+        try 
+        {
+            var result =  await _employeeService.DeleteEmployees(employeeIDs);
+            _response.Message = "Success";
+        }
+        catch(Exception ex)
+        {
+            _response.IsSuccess = false;
+            _response.ErrorMessages = new List<string>() { ex.ToString() };
+        }
+
+        return _response;
+    }
 }

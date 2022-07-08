@@ -25,14 +25,14 @@ public class EmployeeRepository : IEmployeeRepository
 
     public async Task DeleteEmployees(IEnumerable<string> employeeIDs)
     {
-        var employees = await _dbContext.Employees.Where(x => employeeIDs.Any(y => x.EmployeeID == y)).ToListAsync();
+        var employees = await _dbContext.Employees.Include(p => p.Skills).Where(x => employeeIDs.Any(y => x.EmployeeID == y)).ToListAsync();
 
         _dbContext.Employees.RemoveRange(employees);
     }
 
     public async Task<Employee> FetchEmployeeDetails(string EmployeeID)
     {
-        return await _dbContext.Employees.Include(p => p.Skills).FirstOrDefaultAsync(x => x.EmployeeID == EmployeeID);
+        return await _dbContext.Employees.Include(p => p.Skills).SingleOrDefaultAsync(x => x.EmployeeID == EmployeeID);
     }
 
     public async Task<IEnumerable<Employee>> FetchEmployees(FilterParams filterParams)

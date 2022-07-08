@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace EmployeeScheduler.WebApi.Migrations
+namespace EmployeeScheduler.WebApi.Data.Migrations
 {
     public partial class Initialize : Migration
     {
@@ -21,6 +21,7 @@ namespace EmployeeScheduler.WebApi.Migrations
                     DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
                     HiringDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EmployeeType = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -36,7 +37,7 @@ namespace EmployeeScheduler.WebApi.Migrations
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    SKillCategoryID = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Type = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
