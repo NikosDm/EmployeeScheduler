@@ -12,7 +12,7 @@ namespace EmployeeScheduler.Models.Entities
         public string SkillID { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public DateTime CreateDate { get; set; } = DateTime.Now;
+        public DateTime CreateDate { get; set; }
         public DateTime UpdateDate { get; set; }
         public SkillType Type { get; set; }
         public ICollection<EmployeeSkill> EmployeeSkills { get; set; }

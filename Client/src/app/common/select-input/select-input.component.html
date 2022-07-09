@@ -1,0 +1,13 @@
+<div class="form-group-styles">
+  <label for="{{ inputID }}">{{ label }}</label>
+  <select
+    [class.is-invalid]="ngControl.invalid && ngControl.touched"
+    class="form-control"
+    id="{{ inputID }}"
+    [formControl]="ngControl.control"
+  >
+    <option *ngFor="let item of listItems" [value]="item.value">
+      {{ item.text }}
+    </option>
+  </select>
+</div>

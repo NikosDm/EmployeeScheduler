@@ -27,6 +27,8 @@ public class EmployeeService : IEmployeeService
     {
         var employee = _mapper.Map<Employee>(employeeDetailsDTO);
 
+        employee.CreateDate = DateTime.Now;
+
         await _unitOfWork.employeeRepository.AddNewEmployee(employee);
 
         if (_unitOfWork.HasChanges()) return await _unitOfWork.Complete();
@@ -60,6 +62,11 @@ public class EmployeeService : IEmployeeService
     public async Task<EmployeeDetailsDTO> UpdateEmployee(EmployeeDetailsDTO employeeDetailsDTO)
     {
         var employee = await GetEmployee(employeeDetailsDTO.EmployeeID);
+
+        employee.updateValues(employeeDetailsDTO.FirstName, 
+            employeeDetailsDTO.LastName, employeeDetailsDTO.Email, 
+            employeeDetailsDTO.JobTitle, employeeDetailsDTO.HiringDate, 
+            employeeDetailsDTO.EmployeeType, employeeDetailsDTO.DateOfBirth);
 
         employee = await _unitOfWork.employeeRepository.UpdateEmployee(employee);
         

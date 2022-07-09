@@ -26,6 +26,8 @@ public class SkillService : ISkillService
     {
         var skill = _mapper.Map<Skill>(skillDetailsDTO);
 
+        skill.CreateDate = DateTime.Now;
+
         await _unitOfWork.skillRepository.AddNewSkill(skill);
 
         if (_unitOfWork.HasChanges()) return await _unitOfWork.Complete();
@@ -60,6 +62,10 @@ public class SkillService : ISkillService
     {
         var skill = await GetSkill(skillDetailsDTO.SkillID);
 
+        skill.Title = skillDetailsDTO.Title;
+        skill.Description = skillDetailsDTO.Description;
+        skill.Type = skillDetailsDTO.Type;
+
         skill = await _unitOfWork.skillRepository.UpdateSkill(skill);
         
         if (_unitOfWork.HasChanges()) await _unitOfWork.Complete();
@@ -69,11 +75,11 @@ public class SkillService : ISkillService
     
     private async Task<Skill> GetSkill(string SkillID)
     {
-        var employee = await _unitOfWork.skillRepository.FetchSkillDetails(SkillID);
+        var skill = await _unitOfWork.skillRepository.FetchSkillDetails(SkillID);
 
-        if (employee == null) throw new Exception("Skill does not exist");
+        if (skill == null) throw new Exception("Skill does not exist");
 
-        return employee;
+        return skill;
     }
 }
 

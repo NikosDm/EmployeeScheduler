@@ -1,0 +1,46 @@
+<div class="card" *ngIf="!loading">
+  <h5 class="card-header">{{ header }}</h5>
+  <div class="card-body">
+    <form
+      #form="ngForm"
+      class="form-inline mb-3"
+      (ngSubmit)="saveSkill()"
+      autocomplete="off"
+    >
+      <app-text-input
+        [inputID]="'title'"
+        [formControl]="skillDetailsForm.controls['title']"
+        [label]="'Title'"
+      ></app-text-input>
+      <app-select-input
+        [inputID]="'type'"
+        [formControl]="skillDetailsForm.controls['type']"
+        [label]="'Skill Type'"
+        [listItems]="skillTypes"
+      ></app-select-input>
+      <app-text-area
+        class="form-group-textarea-styles"
+        [inputID]="'description'"
+        [formControl]="skillDetailsForm.controls['description']"
+        [label]="'Description'"
+      ></app-text-area>
+      <div class="submit-button-container">
+        <button
+          [disabled]="!skillDetailsForm.valid"
+          class="btn btn-success submit-button-styles"
+          type="submit"
+        >
+          {{ buttonTitle }}
+        </button>
+        <button
+          *ngIf="!isNewSkill"
+          class="btn btn-danger submit-button-styles ml-4"
+          type="button"
+          (click)="deleteSkill()"
+        >
+          Delete Skill
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

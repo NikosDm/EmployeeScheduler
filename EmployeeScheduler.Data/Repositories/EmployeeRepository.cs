@@ -20,6 +20,7 @@ public class EmployeeRepository : IEmployeeRepository
 
     public async Task AddNewEmployee(Employee employee)
     {
+        employee.CreateDate = DateTime.Now;
         await _dbContext.Employees.AddAsync(employee);
     }
 
@@ -32,7 +33,7 @@ public class EmployeeRepository : IEmployeeRepository
 
     public async Task<Employee> FetchEmployeeDetails(string EmployeeID)
     {
-        return await _dbContext.Employees.Include(p => p.Skills).SingleOrDefaultAsync(x => x.EmployeeID == EmployeeID);
+        return await _dbContext.Employees.Include(p => p.Skills).ThenInclude(c => c.Skill).SingleOrDefaultAsync(x => x.EmployeeID == EmployeeID);
     }
 
     public async Task<IEnumerable<Employee>> FetchEmployees(FilterParams filterParams)
@@ -71,6 +72,8 @@ public class EmployeeRepository : IEmployeeRepository
 
     public async Task<Employee> UpdateEmployee(Employee employee)
     {
+        employee.UpdateDate = DateTime.Now;
+
         _dbContext.Employees.Update(employee);
 
         return await Task.FromResult(employee);

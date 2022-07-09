@@ -1,0 +1,14 @@
+<div class="form-group-styles">
+  <label for="{{ inputID }}">{{ label }}</label>
+  <textarea
+    id="{{ inputID }}"
+    [class.is-invalid]="ngControl.invalid && ngControl.touched"
+    class="form-control"
+    [formControl]="ngControl.control"
+    placeholder="{{ label }}"
+    rows="{{ rows }}"
+  ></textarea>
+  <div *ngIf="ngControl.control.errors?.required" class="invalid-feedback">
+    {{ label }} is required
+  </div>
+</div>

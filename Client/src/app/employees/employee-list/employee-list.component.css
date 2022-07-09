@@ -1,0 +1,17 @@
+.employee-action-button {
+  border-radius: 20rem;
+}
+
+.filter-action {
+  margin-left: 0.75rem;
+}
+
+.clickable-header-styles {
+  display: flex;
+  cursor: pointer;
+}
+
+.employee-action {
+  margin-left: 0.75rem;
+  float: right;
+}

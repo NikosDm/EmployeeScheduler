@@ -119,12 +119,15 @@ public class SkillController : BaseApiController
     /// Action that deletes a skill
     /// </summary>
     /// <param name="skillID">ID of skill</param>
-    [HttpDelete("DeleteSkill")]
+    [HttpDelete("DeleteSkill/{skillID}")]
     public async Task<ResponseDTO> DeleteSkill(string skillID) 
     {
         try 
         {
             var result =  await _skillService.DeleteSkill(skillID);
+
+            if (!result) throw new Exception("Skill could not be deleted");
+
             _response.Message = "Success";
         }
         catch(Exception ex)

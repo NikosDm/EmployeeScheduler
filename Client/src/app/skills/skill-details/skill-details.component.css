@@ -1,0 +1,15 @@
+.form-group-textarea-styles {
+  width: 100%;
+  min-height: 180px;
+}
+
+.submit-button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1.5rem;
+  width: 100%;
+}
+
+.submit-button-styles {
+  width: 180px;
+}

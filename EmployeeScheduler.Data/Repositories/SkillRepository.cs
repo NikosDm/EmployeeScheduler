@@ -20,12 +20,14 @@ public class SkillRepository : ISkillRepository
 
     public async Task AddNewSkill(Skill skill)
     {
+        skill.CreateDate = DateTime.Now;
+
         await _dbContext.Skills.AddAsync(skill);
     }
 
     public async Task DeleteSkill(string SkillID)
     {
-        var skill = await _dbContext.Skills.FirstOrDefaultAsync(s => s.SkillID == SkillID);
+        var skill = await _dbContext.Skills.Include(p => p.EmployeeSkills).FirstOrDefaultAsync(s => s.SkillID == SkillID);
 
         _dbContext.Skills.Remove(skill);
     }
@@ -42,6 +44,8 @@ public class SkillRepository : ISkillRepository
 
     public async Task<Skill> UpdateSkill(Skill skill)
     {
+        skill.UpdateDate = DateTime.Now;
+        
         _dbContext.Skills.Update(skill);
 
         return await Task.FromResult(skill);

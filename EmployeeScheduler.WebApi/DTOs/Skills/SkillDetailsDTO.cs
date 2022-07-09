@@ -11,8 +11,6 @@ namespace EmployeeScheduler.WebApi.DTOs.Skills
         public string SkillID { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public DateTime CreateDate { get; set; } = DateTime.Now;
-        public DateTime UpdateDate { get; set; }
         public SkillType Type { get; set; }
     }
 }

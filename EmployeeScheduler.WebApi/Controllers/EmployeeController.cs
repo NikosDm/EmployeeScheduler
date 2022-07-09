@@ -115,7 +115,7 @@ public class EmployeeController : BaseApiController
     /// Action that deletes an employee
     /// </summary>
     /// <param name="employeeID">ID of employee</param>
-    [HttpDelete("DeleteEmployee")]
+    [HttpDelete("DeleteEmployee/{employeeID}")]
     public async Task<ResponseDTO> DeleteEmployee(string employeeID) 
     {
         try 

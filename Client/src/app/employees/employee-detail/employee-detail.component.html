@@ -1,0 +1,66 @@
+<div class="card" *ngIf="!loading">
+  <h5 class="card-header">{{ header }}</h5>
+  <div class="card-body">
+    <form
+      #form="ngForm"
+      class="form-inline mb-3"
+      (ngSubmit)="saveEmployee()"
+      autocomplete="off"
+    >
+      <app-text-input
+        [inputID]="'FirstName'"
+        [formControl]="employeeDetailsForm.controls['FirstName']"
+        [label]="'First Name'"
+      ></app-text-input>
+      <app-text-input
+        [inputID]="'LastName'"
+        [formControl]="employeeDetailsForm.controls['LastName']"
+        [label]="'Last Name'"
+      ></app-text-input>
+      <app-text-input
+        [inputID]="'Email'"
+        [formControl]="employeeDetailsForm.controls['Email']"
+        [label]="'Email'"
+        type="email"
+      ></app-text-input>
+      <app-text-input
+        [inputID]="'JobTitle'"
+        [formControl]="employeeDetailsForm.controls['JobTitle']"
+        [label]="'Job Title'"
+      ></app-text-input>
+      <app-date-input
+        [inputID]="'DateOfBirth'"
+        [formControl]="employeeDetailsForm.controls['DateOfBirth']"
+        [label]="'Date Of Birth'"
+      ></app-date-input>
+      <app-date-input
+        [inputID]="'HiringDate'"
+        [formControl]="employeeDetailsForm.controls['HiringDate']"
+        [label]="'Hiring date'"
+      ></app-date-input>
+      <app-select-input
+        [inputID]="'EmploymentType'"
+        [formControl]="employeeDetailsForm.controls['EmploymentType']"
+        [label]="'Employment Type'"
+        [listItems]="employmentTypes"
+      ></app-select-input>
+      <div class="submit-button-container">
+        <button
+          [disabled]="!employeeDetailsForm.valid"
+          class="btn btn-success submit-button-styles"
+          type="submit"
+        >
+          {{ buttonTitle }}
+        </button>
+        <button
+          *ngIf="!isNewEmployee"
+          class="btn btn-danger submit-button-styles ml-4"
+          type="button"
+          (click)="deleteEmployee()"
+        >
+          Delete Employee
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
