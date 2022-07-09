@@ -18,6 +18,10 @@
   float: right;
 }
 
+.container-styles {
+  margin-top: 6.5rem !important;
+}
+
 @media screen and (min-width: 1201px) {
   .filter-input {
     width: 300px;

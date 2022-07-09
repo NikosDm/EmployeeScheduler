@@ -15,6 +15,10 @@
   height: 180px;
 }
 
+.container-styles {
+  margin-top: 6.5rem !important;
+}
+
 @media screen and (min-width: 769px) {
   .add-skill-button-styles {
     float: right;

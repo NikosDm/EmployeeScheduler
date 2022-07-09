@@ -44,9 +44,9 @@
         [label]="'Employment Type'"
         [listItems]="employmentTypes"
       ></app-select-input>
-      <div style="width: 100%; padding: 2rem 1rem">
+      <div class="employee-skillset-container">
         <div class="skill-set-details">
-          <div>
+          <div class="title-styles">
             <h5>Employee's current skillset</h5>
           </div>
           <div>
@@ -55,39 +55,66 @@
             </button>
           </div>
         </div>
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th scope="col">Name</th>
-              <th scope="col">Type</th>
-              <th scope="col"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngIf="employeeSkills.length == 0">
-              <td class="text-center" colspan="5">Employee has no skills</td>
-            </tr>
-            <ng-container *ngIf="employeeSkills.length > 0">
-              <tr *ngFor="let skill of employeeSkills; let i = index">
-                <td>{{ skill.skill.title }}</td>
-                <td>{{ getSkillType(skill.skill.type) }}</td>
-                <td>
-                  <div style="display: flex">
-                    <div style="margin: 0 0.5rem">
-                      <button
-                        class="btn btn-primary employee-action-button"
-                        type="button"
-                        (click)="removeSkill(i)"
-                      >
-                        <i class="fa fa-trash"></i>
-                      </button>
-                    </div>
-                  </div>
-                </td>
+        <div class="results-table-styles">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Type</th>
+                <th scope="col"></th>
               </tr>
-            </ng-container>
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              <tr *ngIf="employeeSkills.length == 0">
+                <td class="text-center" colspan="5">Employee has no skills</td>
+              </tr>
+              <ng-container *ngIf="employeeSkills.length > 0">
+                <tr *ngFor="let skill of employeeSkills; let i = index">
+                  <td>{{ skill.skill.title }}</td>
+                  <td>{{ getSkillType(skill.skill.type) }}</td>
+                  <td>
+                    <button
+                      class="btn btn-primary employee-action-button"
+                      type="button"
+                      (click)="removeSkill(i)"
+                    >
+                      <i class="fa fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+        </div>
+        <div class="results-grid-styles">
+          <div class="text-center" *ngIf="employeeSkills.length == 0">
+            Employee has no skills
+          </div>
+          <div class="row" *ngIf="employeeSkills.length > 0">
+            <div
+              class="col-sm-6 col-xs-12 padding-col-styles"
+              *ngFor="let skill of employeeSkills"
+            >
+              <div class="card card-list-item">
+                <div class="card-header">
+                  {{ skill.skill.title }}
+                </div>
+                <div class="card-body">
+                  <h6 class="card-subtitle mb-2 text-muted">
+                    Type {{ getSkillType(skill.skill.type) }}
+                  </h6>
+                  <button
+                    (click)="removeSkill(i)"
+                    type="button"
+                    class="btn btn-link remove-link"
+                  >
+                    Remove skill
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="submit-button-container">
         <button

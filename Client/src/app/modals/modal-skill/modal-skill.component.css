@@ -17,3 +17,37 @@
   font-weight: 700;
   color: #2f973e;
 }
+
+@media screen and (min-width: 769px) {
+  .results-table-styles {
+    display: block;
+  }
+
+  .results-grid-styles {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .results-table-styles {
+    display: none;
+  }
+
+  .results-grid-styles {
+    display: block;
+  }
+}
+
+.card-list-item {
+  height: 160px;
+}
+
+.padding-col-styles {
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
+.remove-link {
+  color: #2f973e;
+  padding: 0.5rem 0;
+}

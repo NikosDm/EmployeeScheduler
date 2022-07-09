@@ -56,38 +56,65 @@
     <div>
       <h5>Existing skills</h5>
     </div>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th scope="col">Skill Name</th>
-          <th scope="col">Type</th>
-          <th scope="col">Select</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngIf="skills.length == 0">
-          <td class="text-center" colspan="5">There are no skills</td>
-        </tr>
-        <ng-container *ngIf="skills.length > 0">
-          <tr *ngFor="let skill of skills">
-            <td>{{ skill.title }}</td>
-            <td>{{ getSkillType(skill.type) }}</td>
-            <td>
-              <div style="display: flex">
-                <div style="margin: 0 0.5rem">
-                  <button
-                    class="btn btn-primary employee-action-button"
-                    (click)="onAddExistingSkill(skill)"
-                  >
-                    <i class="fa fa-check"></i>
-                  </button>
-                </div>
-              </div>
-            </td>
+    <div class="results-table-styles">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Skill Name</th>
+            <th scope="col">Type</th>
+            <th scope="col">Select</th>
           </tr>
-        </ng-container>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          <tr *ngIf="skills.length == 0">
+            <td class="text-center" colspan="5">There are no skills</td>
+          </tr>
+          <ng-container *ngIf="skills.length > 0">
+            <tr *ngFor="let skill of skills">
+              <td>{{ skill.title }}</td>
+              <td>{{ getSkillType(skill.type) }}</td>
+              <td>
+                <button
+                  class="btn btn-success employee-action-button"
+                  (click)="onAddExistingSkill(skill)"
+                >
+                  <i class="fa fa-check"></i>
+                </button>
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+    <div class="results-grid-styles">
+      <div class="text-center" *ngIf="skills.length == 0">
+        There are no skills
+      </div>
+      <div class="row" *ngIf="skills.length > 0">
+        <div
+          class="col-sm-6 col-xs-12 padding-col-styles"
+          *ngFor="let skill of skills"
+        >
+          <div class="card card-list-item">
+            <div class="card-header">
+              {{ skill.title }}
+            </div>
+            <div class="card-body">
+              <h6 class="card-subtitle mb-2 text-muted">
+                Type {{ getSkillType(skill.type) }}
+              </h6>
+              <button
+                (click)="onAddExistingSkill(skill)"
+                type="button"
+                class="btn btn-link remove-link"
+              >
+                Add existing skill
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 <div class="modal-footer">

@@ -1,4 +1,4 @@
-<div class="container" style="margin-top: 6.5rem !important" *ngIf="!loading">
+<div class="container container-styles" *ngIf="!loading">
   <h3>Employee list</h3>
   <p>All the active employees of the company at the moment.</p>
   <p>
@@ -144,16 +144,12 @@
             <td>{{ employee.hiringDate | date: "dd/MM/YYYY" }}</td>
             <td>{{ employee.jobTitle }}</td>
             <td>
-              <div style="display: flex">
-                <div style="margin: 0 0.5rem">
-                  <button
-                    class="btn btn-primary employee-action-button"
-                    [routerLink]="'/employees/' + employee.employeeID"
-                  >
-                    <i class="fa fa-edit"></i>
-                  </button>
-                </div>
-              </div>
+              <button
+                class="btn btn-primary employee-action-button"
+                [routerLink]="'/employees/' + employee.employeeID"
+              >
+                <i class="fa fa-edit"></i>
+              </button>
             </td>
           </tr>
         </ng-container>

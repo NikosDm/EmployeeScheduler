@@ -9,16 +9,74 @@
   width: 180px;
 }
 
-.skill-set-details {
-  display: flex;
-  justify-content: space-between;
-  margin: 1.5rem 0rem;
-}
-
 .employee-card-details {
   margin: 2rem 0;
 }
 
 .employee-action-button {
   border-radius: 20rem;
+}
+
+.employee-skillset-container {
+  width: 100%;
+  padding: 2rem 1rem;
+}
+
+@media screen and (min-width: 769px) {
+  .results-table-styles {
+    display: block;
+  }
+
+  .results-grid-styles {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .results-table-styles {
+    display: none;
+  }
+
+  .results-grid-styles {
+    display: block;
+  }
+}
+
+.skill-set-details {
+  display: flex;
+  margin: 1.5rem 0rem;
+  flex-wrap: wrap;
+}
+
+@media screen and (min-width: 480px) {
+  .skill-set-details {
+    justify-content: space-between;
+  }
+
+  .title-styles {
+    padding: 0;
+  }
+}
+
+@media screen and (max-width: 479px) {
+  .skill-set-details {
+    justify-content: center;
+  }
+
+  .title-styles {
+    padding: 1rem 0;
+  }
+}
+
+.card-list-item {
+  height: 160px;
+}
+
+.padding-col-styles {
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
+.remove-link {
+  padding: 0.5rem 0;
 }
