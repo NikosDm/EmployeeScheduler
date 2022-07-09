@@ -28,6 +28,21 @@ public class Skill
     {
         return string.Format("Skill: {0}, of type: {1}, Details: {2}", this.Title, this.Type.ToString(), this.Description);
     }
+
+    public string GetTypeDescription()
+    {
+        switch (this.Type) 
+        {
+            case SkillType.SoftSkill: 
+                return "Soft skill";
+            case SkillType.TechnicalSkill: 
+                return "Technical skill";
+            case SkillType.LeadershipSkill: 
+                return "Leadership skill";
+            default: 
+                return string.Empty;
+        }
+    }
 }
 
 public enum SkillType 

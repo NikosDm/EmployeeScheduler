@@ -13,5 +13,6 @@ public interface ISkillService
     Task<bool> AddNewSkill(SkillDetailsDTO skillDetailsDTO);
     Task<SkillDetailsDTO> UpdateSkill(SkillDetailsDTO skillDetailsDTO);
     Task<bool> DeleteSkill(string SkillID);
+    Task<IEnumerable<SkillExcelListDTO>> FetchAllSkillsForExport();
 }
 

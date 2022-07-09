@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SkillListItem } from 'src/app/models/skill';
 import { SkillService } from 'src/app/services/skill.service';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-skill-list',
@@ -30,6 +31,22 @@ export class SkillListComponent implements OnInit {
         this.loading = false;
       }
     );
+  }
+
+  exportSkills() {
+    this.service.exportSkills().subscribe((result) => {
+      let downloadLink = document.createElement('a');
+      downloadLink.target = '_blank';
+      downloadLink.href = window.URL.createObjectURL(result);
+      const formattedDate = formatDate(new Date(), 'yyyyMMddhhmmss', 'en-US');
+      downloadLink.setAttribute(
+        'download',
+        `CurrentSkills_${formattedDate}.xlsx`
+      );
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+      document.body.removeChild(downloadLink);
+    });
   }
 
   getSkillType(type: number) {

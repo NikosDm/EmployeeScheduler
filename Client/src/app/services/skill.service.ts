@@ -69,4 +69,10 @@ export class SkillService {
         })
       );
   }
+
+  exportSkills() {
+    return this.http.get(`${this.baseURL}Skill/ExportSkillsToExcel`, {
+      responseType: 'blob',
+    });
+  }
 }

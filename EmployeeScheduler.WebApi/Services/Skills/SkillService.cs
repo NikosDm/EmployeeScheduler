@@ -49,6 +49,20 @@ public class SkillService : ISkillService
         return _mapper.Map<IEnumerable<SkillListDTO>>(skills);
     }
 
+    public async Task<IEnumerable<SkillExcelListDTO>> FetchAllSkillsForExport()
+    {
+        var skills = await _unitOfWork.skillRepository.FetchAllSkills();
+
+        return skills.Select(x => new SkillExcelListDTO { 
+            SkillID = x.SkillID,
+            Title = x.Title,
+            Description = x.Description,
+            Type = x.GetTypeDescription(),
+            CreatedAt = x.CreateDate.ToString("dd/MM/yyyy"),
+            LastUpdateAt = x.UpdateDate.ToString("dd/MM/yyyy")
+        });
+    }
+
     public async Task<SkillDetailsDTO> FetchSkillByID(string SkillID)
     {
         var skill = await GetSkill(SkillID);
