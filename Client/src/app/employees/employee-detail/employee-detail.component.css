@@ -2,9 +2,23 @@
   display: flex;
   justify-content: flex-end;
   margin-top: 1.5rem;
-  width: 60%;
+  width: 100%;
 }
 
 .submit-button-styles {
   width: 180px;
+}
+
+.skill-set-details {
+  display: flex;
+  justify-content: space-between;
+  margin: 1.5rem 0rem;
+}
+
+.employee-card-details {
+  margin: 2rem 0;
+}
+
+.employee-action-button {
+  border-radius: 20rem;
 }

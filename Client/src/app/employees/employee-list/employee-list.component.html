@@ -18,11 +18,10 @@
       (ngSubmit)="submitSearch()"
       autocomplete="off"
     >
-      <div class="form-group">
+      <div class="form-group form-group-responsive">
         <input
           type="text"
-          class="form-control ml-1"
-          style="width: 300px"
+          class="form-control filter-input"
           name="minAge"
           placeholder="Search employees..."
           [(ngModel)]="filterValue.searchValue"
@@ -31,16 +30,19 @@
       <button
         [disabled]="checkFilters()"
         type="button"
-        class="btn btn-info filter-action"
+        class="btn btn-info filter-action form-group-button-reset-filter-responsive"
         (click)="resetFilters()"
       >
         Reset Filters
       </button>
-      <button class="btn btn-primary filter-action" type="submit">
+      <button
+        class="btn btn-primary filter-action form-group-button-filter-action-responsive"
+        type="submit"
+      >
         Apply Filters
       </button>
       <button
-        class="btn btn-info employee-action"
+        class="btn btn-info employee-action form-group-button-add-action-responsive"
         type="button"
         [routerLink]="'/employees/addNewEmployee'"
       >
@@ -48,7 +50,7 @@
       </button>
       <button
         [disabled]="checkSelectedRecords()"
-        class="btn btn-danger employee-action"
+        class="btn btn-danger employee-action form-group-button-multiple-delete-responsive"
         type="button"
         (click)="deleteMultipleEmployees()"
       >
@@ -56,7 +58,7 @@
       </button>
     </form>
   </div>
-  <div>
+  <div class="results-table-styles">
     <table class="table table-striped">
       <thead>
         <tr>
@@ -157,5 +159,31 @@
         </ng-container>
       </tbody>
     </table>
+  </div>
+  <div class="results-grid-styles">
+    <div class="text-center" *ngIf="employeeList.length == 0">
+      There are no employees
+    </div>
+    <div class="row" *ngIf="employeeList.length > 0">
+      <div
+        class="col-sm-6 col-xs-12 padding-col-styles"
+        *ngFor="let employee of employeeList"
+      >
+        <div class="card card-list-item">
+          <div class="card-header">
+            {{ employee.firstName + " " + employee.lastName }}
+          </div>
+          <div class="card-body">
+            <h6 class="card-subtitle mb-2">{{ employee.jobTitle }}</h6>
+            <h6 class="card-subtitle mb-2 text-muted">
+              Hired on {{ employee.hiringDate | date: "dd/MM/YYYY" }}
+            </h6>
+            <a [href]="'/employees/' + employee.employeeID" class="card-link"
+              >View Details</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

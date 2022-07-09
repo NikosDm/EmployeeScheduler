@@ -5,11 +5,38 @@
 
 .submit-button-container {
   display: flex;
-  justify-content: flex-end;
   margin-top: 1.5rem;
   width: 100%;
 }
 
 .submit-button-styles {
   width: 180px;
+}
+
+@media screen and (min-width: 400px) {
+  .text-input-responsive {
+    width: auto;
+  }
+
+  .select-input-responsive {
+    width: auto;
+  }
+
+  .submit-button-container {
+    justify-content: flex-end;
+  }
+}
+
+@media screen and (max-width: 399px) {
+  .text-input-responsive {
+    width: 100%;
+  }
+
+  .select-input-responsive {
+    width: 100%;
+  }
+
+  .submit-button-container {
+    justify-content: center;
+  }
 }

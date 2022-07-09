@@ -10,6 +10,7 @@ export class ConfirmModalComponent implements OnInit {
   @Input() deleteSelectedRecord = new EventEmitter();
   title: string;
   closeBtnName: string;
+  confirmButtonName: string = 'Delete';
   content: string;
 
   constructor(public bsModalRef: BsModalRef) {}

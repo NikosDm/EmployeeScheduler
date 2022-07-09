@@ -4,7 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { ConfirmModalComponent } from 'src/app/modals/confirm-modal/confirm-modal.component';
-import { EmployeeDetails } from 'src/app/models/employees';
+import { ModalSkillComponent } from 'src/app/modals/modal-skill/modal-skill.component';
+import { EmployeeDetails, EmployeeSkills } from 'src/app/models/employees';
 import { EmployeeService } from 'src/app/services/employee.service';
 
 @Component({
@@ -16,8 +17,10 @@ export class EmployeeDetailComponent implements OnInit {
   header: string = '';
   employeeDetailsForm: FormGroup;
   bsModalRef: BsModalRef;
+  skillModalRef: BsModalRef;
   employeeID: string;
   loading: boolean;
+  employeeSkills: EmployeeSkills[];
   employmentTypes: any[] = [
     { value: 1, text: 'Full Time' },
     { value: 2, text: 'Part Time' },
@@ -60,6 +63,7 @@ export class EmployeeDetailComponent implements OnInit {
       EmploymentType: [1, Validators.required],
       JobTitle: ['', Validators.required],
     });
+    this.employeeSkills = [];
     this.loading = false;
   }
 
@@ -67,24 +71,95 @@ export class EmployeeDetailComponent implements OnInit {
     this.isNewEmployee = false;
     this.service.fetchEmployeeByID(employeeID).subscribe(
       (x) => {
-        this.employeeID = employeeID;
-        this.buttonTitle = 'Update Employee';
-        this.header = `Employee ${x.firstName} ${x.lastName}`;
-        this.employeeDetailsForm = this.fb.group({
-          FirstName: [x.firstName, Validators.required],
-          LastName: [x.lastName, Validators.required],
-          Email: [x.email, [Validators.required, Validators.email]],
-          DateOfBirth: [new Date(x.dateOfBirth), Validators.required],
-          HiringDate: [new Date(x.hiringDate), Validators.required],
-          EmploymentType: [x.employeeType, Validators.required],
-          JobTitle: [x.jobTitle, Validators.required],
-        });
+        if (x) {
+          this.employeeID = employeeID;
+          this.buttonTitle = 'Update Employee';
+          this.header = `Employee ${x.firstName} ${x.lastName}`;
+          this.employeeDetailsForm = this.fb.group({
+            FirstName: [x.firstName, Validators.required],
+            LastName: [x.lastName, Validators.required],
+            Email: [x.email, [Validators.required, Validators.email]],
+            DateOfBirth: [new Date(x.dateOfBirth), Validators.required],
+            HiringDate: [new Date(x.hiringDate), Validators.required],
+            EmploymentType: [x.employeeType, Validators.required],
+            JobTitle: [x.jobTitle, Validators.required],
+          });
+          this.employeeSkills = x.skills.map((y) => {
+            return {
+              skillID: y.skill.skillID,
+              skill: {
+                skillID: y.skill.skillID,
+                title: y.skill.title,
+                description: y.skill.description,
+                type: y.skill.type,
+              },
+            };
+          });
+        } else {
+          this.router.navigateByUrl('/not-found');
+        }
       },
-      () => {},
+      () => {
+        this.router.navigateByUrl('/not-found');
+      },
       () => {
         this.loading = false;
       }
     );
+  }
+
+  addNewSkill() {
+    const config = {
+      class: 'modal-lg',
+      initialState: {
+        skillIDs: this.employeeSkills
+          .filter((x) => x.skillID !== null)
+          .map((x) => x.skillID),
+        isNewEmployee: this.isNewEmployee,
+      },
+    };
+    this.skillModalRef = this.modalService.show(ModalSkillComponent, config);
+
+    this.skillModalRef.content.addExistingSkill.subscribe((skill) => {
+      this.employeeSkills.push({
+        skillID: skill.skillID,
+        skill: {
+          skillID: null,
+          title: skill.title,
+          description: skill.description,
+          type: skill.type,
+        },
+      });
+    });
+
+    this.skillModalRef.content.addNewSkill.subscribe((skill) => {
+      this.employeeSkills.push({
+        skillID: null,
+        skill: {
+          skillID: null,
+          title: skill.title,
+          description: skill.description,
+          type: Number(skill.type),
+        },
+      });
+    });
+  }
+
+  removeSkill(index: number) {
+    const config = {
+      class: 'modal-dialog-centered',
+      initialState: {
+        title: 'Remove skill',
+        content: 'Are you sure that you want to remove the selected skill?',
+      },
+    };
+    this.bsModalRef = this.modalService.show(ConfirmModalComponent, config);
+    this.bsModalRef.content.closeBtnName = 'No';
+    this.bsModalRef.content.confirmButtonName = 'Yes';
+
+    this.bsModalRef.content.deleteSelectedRecord.subscribe(() => {
+      this.employeeSkills.splice(index, 1);
+    });
   }
 
   deleteEmployee() {
@@ -123,7 +198,7 @@ export class EmployeeDetailComponent implements OnInit {
 
   saveEmployee() {
     if (this.isNewEmployee) this.addNewEmployee();
-    else this.updateCurrentSkill();
+    else this.updateCurrentEmployee();
   }
 
   addNewEmployee() {
@@ -136,6 +211,7 @@ export class EmployeeDetailComponent implements OnInit {
       hiringDate: this.employeeDetailsForm.value['HiringDate'],
       employeeType: Number(this.employeeDetailsForm.value['EmploymentType']),
       jobTitle: this.employeeDetailsForm.value['JobTitle'],
+      skills: this.employeeSkills,
     };
 
     this.service.addNewEmployee(employeeObject).subscribe(
@@ -159,7 +235,7 @@ export class EmployeeDetailComponent implements OnInit {
     );
   }
 
-  updateCurrentSkill() {
+  updateCurrentEmployee() {
     const employeeObject: EmployeeDetails = {
       employeeID: this.employeeID,
       firstName: this.employeeDetailsForm.value['FirstName'],
@@ -169,6 +245,7 @@ export class EmployeeDetailComponent implements OnInit {
       hiringDate: this.employeeDetailsForm.value['HiringDate'],
       employeeType: Number(this.employeeDetailsForm.value['EmploymentType']),
       jobTitle: this.employeeDetailsForm.value['JobTitle'],
+      skills: this.employeeSkills,
     };
 
     this.service.updateEmployee(employeeObject).subscribe(
@@ -185,5 +262,18 @@ export class EmployeeDetailComponent implements OnInit {
         this.toastr.error('An unexpected error occured.');
       }
     );
+  }
+
+  getSkillType(type: number) {
+    switch (type) {
+      case 1:
+        return 'Soft Skills';
+      case 2:
+        return 'Technical Skills';
+      case 3:
+        return 'Leadership Skills';
+      default:
+        return '';
+    }
   }
 }

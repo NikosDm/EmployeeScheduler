@@ -1,4 +1,44 @@
 .add-skill-button-styles {
   padding-bottom: 1rem;
-  float: right;
+}
+
+.employee-action-button {
+  border-radius: 20rem;
+}
+
+.padding-col-styles {
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
+.card-list-item {
+  height: 180px;
+}
+
+@media screen and (min-width: 769px) {
+  .add-skill-button-styles {
+    float: right;
+  }
+
+  .results-table-styles {
+    display: block;
+  }
+
+  .results-grid-styles {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .add-skill-button-styles {
+    float: unset;
+  }
+
+  .results-table-styles {
+    display: none;
+  }
+
+  .results-grid-styles {
+    display: block;
+  }
 }

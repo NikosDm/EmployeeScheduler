@@ -28,6 +28,7 @@ import { TextInputComponent } from './common/text-input/text-input.component';
 import { SelectInputComponent } from './common/select-input/select-input.component';
 import { TextAreaComponent } from './common/text-area/text-area.component';
 import { ConfirmModalComponent } from './modals/confirm-modal/confirm-modal.component';
+import { ModalSkillComponent } from './modals/modal-skill/modal-skill.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { ConfirmModalComponent } from './modals/confirm-modal/confirm-modal.comp
     SelectInputComponent,
     TextAreaComponent,
     ConfirmModalComponent,
+    ModalSkillComponent,
   ],
   imports: [
     BrowserModule,

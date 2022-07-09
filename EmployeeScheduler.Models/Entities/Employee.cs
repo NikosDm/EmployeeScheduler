@@ -30,6 +30,30 @@ public class Employee
         this.DateOfBirth = DateOfBirth;
         this.EmployeeType = employmentType;
     }
+
+    public void updateSkills(IEnumerable<EmployeeSkill> skills)
+    {
+        this.Skills = new List<EmployeeSkill>();
+        
+        foreach (var skill in skills) 
+        {
+            if (!string.IsNullOrWhiteSpace(skill.SkillID) && this.Skills.Any(x => x.SkillID == skill.SkillID))
+                continue;
+            else if (!string.IsNullOrWhiteSpace(skill.SkillID) && !this.Skills.Any(x => x.SkillID == skill.SkillID))
+                this.Skills.Add(new EmployeeSkill { SkillID = skill.SkillID, EmployeeID = this.EmployeeID });
+            else 
+                if (skill != null && skill.Skill != null)
+                    this.Skills.Add(new EmployeeSkill { SkillID = null, 
+                        EmployeeID = this.EmployeeID, 
+                        Skill = new Skill { 
+                            Title = skill?.Skill?.Title,
+                            Description = skill?.Skill?.Description, 
+                            Type = skill.Skill.Type, 
+                        } });
+                else 
+                    continue;
+        }
+    }
 }
 
 public enum EmploymentType 

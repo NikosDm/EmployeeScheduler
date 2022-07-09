@@ -1,0 +1,97 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-left">Add new skill</h4>
+  <button
+    type="button"
+    class="btn-close close pull-right"
+    aria-label="Close"
+    (click)="bsModalRef.hide()"
+  >
+    <span aria-hidden="true" class="visually-hidden">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <p>
+    You can either add an existing skill or create a new one. In any case after
+    adding a new skill to the employee, you should press
+    <span class="required-action">{{ requiredAction }}</span
+    >. Otherwise the change won't be saved.
+  </p>
+  <div>
+    <form
+      #form="ngForm"
+      class="form-inline mb-3"
+      (ngSubmit)="onAddNewSkill()"
+      autocomplete="off"
+    >
+      <app-text-input
+        [inputID]="'title'"
+        [formControl]="skillDetailsForm.controls['title']"
+        [label]="'Title'"
+      ></app-text-input>
+      <app-select-input
+        [inputID]="'type'"
+        [formControl]="skillDetailsForm.controls['type']"
+        [label]="'Skill Type'"
+        [listItems]="skillTypes"
+      ></app-select-input>
+      <app-text-area
+        class="text-area-description"
+        [inputID]="'description'"
+        [formControl]="skillDetailsForm.controls['description']"
+        [label]="'Description'"
+        [rows]="2"
+      ></app-text-area>
+      <div class="submit-button-container">
+        <button
+          [disabled]="!skillDetailsForm.valid"
+          class="btn btn-success submit-button-styles"
+          type="submit"
+        >
+          Add New Skill
+        </button>
+      </div>
+    </form>
+  </div>
+  <div>
+    <div>
+      <h5>Existing skills</h5>
+    </div>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Skill Name</th>
+          <th scope="col">Type</th>
+          <th scope="col">Select</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngIf="skills.length == 0">
+          <td class="text-center" colspan="5">There are no skills</td>
+        </tr>
+        <ng-container *ngIf="skills.length > 0">
+          <tr *ngFor="let skill of skills">
+            <td>{{ skill.title }}</td>
+            <td>{{ getSkillType(skill.type) }}</td>
+            <td>
+              <div style="display: flex">
+                <div style="margin: 0 0.5rem">
+                  <button
+                    class="btn btn-primary employee-action-button"
+                    (click)="onAddExistingSkill(skill)"
+                  >
+                    <i class="fa fa-check"></i>
+                  </button>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-default" (click)="bsModalRef.hide()">
+    Cancel
+  </button>
+</div>

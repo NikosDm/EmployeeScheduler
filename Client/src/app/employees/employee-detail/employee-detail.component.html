@@ -1,4 +1,4 @@
-<div class="card" *ngIf="!loading">
+<div class="card employee-card-styles" *ngIf="!loading">
   <h5 class="card-header">{{ header }}</h5>
   <div class="card-body">
     <form
@@ -44,6 +44,51 @@
         [label]="'Employment Type'"
         [listItems]="employmentTypes"
       ></app-select-input>
+      <div style="width: 100%; padding: 2rem 1rem">
+        <div class="skill-set-details">
+          <div>
+            <h5>Employee's current skillset</h5>
+          </div>
+          <div>
+            <button class="btn btn-info" type="button" (click)="addNewSkill()">
+              Add new skill
+            </button>
+          </div>
+        </div>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Type</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngIf="employeeSkills.length == 0">
+              <td class="text-center" colspan="5">Employee has no skills</td>
+            </tr>
+            <ng-container *ngIf="employeeSkills.length > 0">
+              <tr *ngFor="let skill of employeeSkills; let i = index">
+                <td>{{ skill.skill.title }}</td>
+                <td>{{ getSkillType(skill.skill.type) }}</td>
+                <td>
+                  <div style="display: flex">
+                    <div style="margin: 0 0.5rem">
+                      <button
+                        class="btn btn-primary employee-action-button"
+                        type="button"
+                        (click)="removeSkill(i)"
+                      >
+                        <i class="fa fa-trash"></i>
+                      </button>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+      </div>
       <div class="submit-button-container">
         <button
           [disabled]="!employeeDetailsForm.valid"

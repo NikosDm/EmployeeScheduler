@@ -8,14 +8,26 @@
   margin-bottom: 0.5rem;
 }
 
-.form-group-styles > input {
-  width: 300px;
-}
-
-.form-group-styles > select {
-  width: 300px;
-}
-
 .form-group-styles > textarea {
   width: 100%;
+}
+
+@media screen and (min-width: 400px) {
+  .form-group-styles > input {
+    width: 300px;
+  }
+
+  .form-group-styles > select {
+    width: 300px;
+  }
+}
+
+@media screen and (max-width: 399px) {
+  .form-group-styles > input {
+    width: 100%;
+  }
+
+  .form-group-styles > select {
+    width: 100%;
+  }
 }

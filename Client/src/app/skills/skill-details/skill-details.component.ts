@@ -62,16 +62,22 @@ export class SkillDetailsComponent implements OnInit {
     this.isNewSkill = false;
     this.service.fetchSkillByID(skillID).subscribe(
       (x) => {
-        this.skillID = x.skillID;
-        this.buttonTitle = 'Update Skill';
-        this.header = `Skill: ${x.title}`;
-        this.skillDetailsForm = this.fb.group({
-          title: [x.title, Validators.required],
-          description: [x.description, Validators.required],
-          type: [x.type, Validators.required],
-        });
+        if (x) {
+          this.skillID = x.skillID;
+          this.buttonTitle = 'Update Skill';
+          this.header = `Skill: ${x.title}`;
+          this.skillDetailsForm = this.fb.group({
+            title: [x.title, Validators.required],
+            description: [x.description, Validators.required],
+            type: [x.type, Validators.required],
+          });
+        } else {
+          this.router.navigateByUrl('/not-found');
+        }
       },
-      () => {},
+      () => {
+        this.router.navigateByUrl('/not-found');
+      },
       () => {
         this.loading = false;
       }

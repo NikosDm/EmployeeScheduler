@@ -68,6 +68,8 @@ public class EmployeeService : IEmployeeService
             employeeDetailsDTO.JobTitle, employeeDetailsDTO.HiringDate, 
             employeeDetailsDTO.EmployeeType, employeeDetailsDTO.DateOfBirth);
 
+        employee.updateSkills(employeeDetailsDTO.Skills);
+
         employee = await _unitOfWork.employeeRepository.UpdateEmployee(employee);
         
         if (_unitOfWork.HasChanges()) await _unitOfWork.Complete();

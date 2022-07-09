@@ -1,3 +1,5 @@
+import { SkillDetails } from './skill';
+
 export interface EmployeeListItem {
   checked: boolean;
   employeeID: string;
@@ -16,4 +18,10 @@ export interface EmployeeDetails {
   email: string;
   dateOfBirth: Date;
   employeeType: number;
+  skills: EmployeeSkills[];
+}
+
+export interface EmployeeSkills {
+  skillID: string;
+  skill: SkillDetails;
 }

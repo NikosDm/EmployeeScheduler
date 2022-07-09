@@ -11,7 +11,7 @@
       Add New Skill
     </button>
   </div>
-  <div>
+  <div class="results-table-styles">
     <table class="table table-striped">
       <thead>
         <tr>
@@ -46,5 +46,31 @@
         </ng-container>
       </tbody>
     </table>
+  </div>
+  <div class="results-grid-styles">
+    <div class="text-center" *ngIf="skills.length == 0">
+      There are no skills
+    </div>
+    <div class="row" *ngIf="skills.length > 0">
+      <div
+        class="col-sm-6 col-xs-12 padding-col-styles"
+        *ngFor="let skill of skills"
+      >
+        <div class="card card-list-item">
+          <div class="card-header">Skill: {{ skill.title }}</div>
+          <div class="card-body">
+            <h6 class="card-subtitle mb-2">
+              Type: {{ getSkillType(skill.type) }}
+            </h6>
+            <h6 class="card-subtitle mb-2 text-muted">
+              Created on {{ skill.createDate | date: "dd/MM/YYYY" }}
+            </h6>
+            <a [href]="'/skills/' + skill.skillID" class="card-link"
+              >View Details</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

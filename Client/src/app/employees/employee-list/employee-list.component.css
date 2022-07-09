@@ -4,6 +4,7 @@
 
 .filter-action {
   margin-left: 0.75rem;
+  margin-top: 0.75rem;
 }
 
 .clickable-header-styles {
@@ -13,5 +14,171 @@
 
 .employee-action {
   margin-left: 0.75rem;
+  margin-top: 0.75rem;
   float: right;
+}
+
+@media screen and (min-width: 1201px) {
+  .filter-input {
+    width: 300px;
+  }
+
+  .filter-action {
+    margin-top: 0;
+  }
+
+  .employee-action {
+    margin-top: 0;
+  }
+
+  .form-group-responsive {
+    width: 30%;
+  }
+
+  .form-group-button-reset-filter-responsive {
+    width: 15%;
+  }
+
+  .form-group-button-filter-action-responsive {
+    width: 12%;
+  }
+
+  .form-group-button-add-action-responsive {
+    width: 16%;
+  }
+
+  .form-group-button-multiple-delete-responsive {
+    width: 22%;
+  }
+}
+
+@media screen and (max-width: 1200px) and (min-width: 994px) {
+  .filter-input {
+    width: 400px;
+  }
+
+  .filter-action {
+    margin-top: 0.75rem;
+  }
+
+  .employee-action {
+    margin-top: 0.75rem;
+  }
+
+  .form-group-responsive {
+    width: 80%;
+  }
+
+  .form-group-button-reset-filter-responsive {
+    width: 20%;
+  }
+
+  .form-group-button-filter-action-responsive {
+    width: 20%;
+  }
+
+  .form-group-button-add-action-responsive {
+    width: 20%;
+  }
+
+  .form-group-button-multiple-delete-responsive {
+    width: 25%;
+  }
+}
+
+@media screen and (max-width: 993px) and (min-width: 769px) {
+  .filter-input {
+    width: 400px;
+  }
+
+  .filter-action {
+    margin-top: 0.75rem;
+  }
+
+  .employee-action {
+    margin-top: 0.75rem;
+  }
+
+  .form-group-responsive {
+    width: 80%;
+  }
+
+  .form-group-button-reset-filter-responsive {
+    width: 40%;
+  }
+
+  .form-group-button-filter-action-responsive {
+    width: 40%;
+  }
+
+  .form-group-button-add-action-responsive {
+    width: 40%;
+  }
+
+  .form-group-button-multiple-delete-responsive {
+    width: 40%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .filter-input {
+    width: 100%;
+  }
+
+  .filter-action {
+    margin-top: 0.75rem;
+  }
+
+  .employee-action {
+    margin-top: 0.75rem;
+  }
+
+  .form-group-responsive {
+    width: 100%;
+  }
+
+  .form-group-button-reset-filter-responsive {
+    width: 100%;
+  }
+
+  .form-group-button-filter-action-responsive {
+    width: 100%;
+  }
+
+  .form-group-button-add-action-responsive {
+    width: 100%;
+  }
+
+  .form-group-button-multiple-delete-responsive {
+    width: 100%;
+  }
+}
+
+.card-list-item {
+  height: 180px;
+}
+
+.padding-col-styles {
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
+@media screen and (min-width: 769px) {
+  .results-table-styles {
+    display: block;
+  }
+
+  .results-grid-styles {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .results-table-styles {
+    display: none;
+  }
+
+  .results-grid-styles {
+    display: block;
+  }
 }

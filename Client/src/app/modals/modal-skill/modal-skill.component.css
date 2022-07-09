@@ -1,0 +1,19 @@
+.text-area-description {
+  width: 90%;
+  padding: 1rem 0 0 0;
+  height: 160px;
+}
+
+.submit-button-container {
+  width: 100%;
+  padding: 1rem;
+}
+
+.submit-button-styles {
+  float: right;
+}
+
+.required-action {
+  font-weight: 700;
+  color: #2f973e;
+}

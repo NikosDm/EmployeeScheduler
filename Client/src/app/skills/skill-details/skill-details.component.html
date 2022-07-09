@@ -8,11 +8,13 @@
       autocomplete="off"
     >
       <app-text-input
+        class="text-input-responsive"
         [inputID]="'title'"
         [formControl]="skillDetailsForm.controls['title']"
         [label]="'Title'"
       ></app-text-input>
       <app-select-input
+        class="select-input-responsive"
         [inputID]="'type'"
         [formControl]="skillDetailsForm.controls['type']"
         [label]="'Skill Type'"
