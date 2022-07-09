@@ -13,4 +13,10 @@
   <div *ngIf="ngControl.control.errors?.required" class="invalid-feedback">
     {{ label }} is required
   </div>
+  <div *ngIf="ngControl.control.errors?.isLater" class="invalid-feedback">
+    Provide an earlier date
+  </div>
+  <div *ngIf="ngControl.control.errors?.isEarlier" class="invalid-feedback">
+    Provide a later date
+  </div>
 </div>

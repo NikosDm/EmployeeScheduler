@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
@@ -50,6 +56,14 @@ export class EmployeeDetailComponent implements OnInit {
     });
   }
 
+  checkLaterDate(dateParam: string): ValidatorFn {
+    return (control: AbstractControl) => {
+      return control?.value <= control?.parent?.controls[dateParam].value
+        ? null
+        : { isLater: true };
+    };
+  }
+
   setAddNewEmployee() {
     this.buttonTitle = 'Save New Employee';
     this.header = `Add New Employee`;
@@ -58,10 +72,16 @@ export class EmployeeDetailComponent implements OnInit {
       FirstName: ['', Validators.required],
       LastName: ['', Validators.required],
       Email: ['', [Validators.required, Validators.email]],
-      DateOfBirth: ['', Validators.required],
+      DateOfBirth: [
+        '',
+        [Validators.required, this.checkLaterDate('HiringDate')],
+      ],
       HiringDate: ['', Validators.required],
       EmploymentType: [1, Validators.required],
       JobTitle: ['', Validators.required],
+    });
+    this.employeeDetailsForm.controls.HiringDate.valueChanges.subscribe(() => {
+      this.employeeDetailsForm.controls.DateOfBirth.updateValueAndValidity();
     });
     this.employeeSkills = [];
     this.loading = false;
@@ -79,11 +99,19 @@ export class EmployeeDetailComponent implements OnInit {
             FirstName: [x.firstName, Validators.required],
             LastName: [x.lastName, Validators.required],
             Email: [x.email, [Validators.required, Validators.email]],
-            DateOfBirth: [new Date(x.dateOfBirth), Validators.required],
+            DateOfBirth: [
+              new Date(x.dateOfBirth),
+              [Validators.required, this.checkLaterDate('HiringDate')],
+            ],
             HiringDate: [new Date(x.hiringDate), Validators.required],
             EmploymentType: [x.employeeType, Validators.required],
             JobTitle: [x.jobTitle, Validators.required],
           });
+          this.employeeDetailsForm.controls.HiringDate.valueChanges.subscribe(
+            () => {
+              this.employeeDetailsForm.controls.DateOfBirth.updateValueAndValidity();
+            }
+          );
           this.employeeSkills = x.skills.map((y) => {
             return {
               skillID: y.skill.skillID,

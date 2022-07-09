@@ -27,8 +27,6 @@ public class EmployeeService : IEmployeeService
     {
         var employee = _mapper.Map<Employee>(employeeDetailsDTO);
 
-        employee.CreateDate = DateTime.Now;
-
         await _unitOfWork.employeeRepository.AddNewEmployee(employee);
 
         if (_unitOfWork.HasChanges()) return await _unitOfWork.Complete();

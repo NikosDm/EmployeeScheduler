@@ -71,6 +71,14 @@ public class SkillController : BaseApiController
     /// <summary>
     /// Action that adds a new Skill
     /// </summary>
+    /// <remarks>
+    /// Same request data  
+    /// {
+    ///    "title": "New Skill Title",
+    ///    "description": "Details about new skill",
+    ///    "type": 1
+    /// }
+    /// </remarks>
     /// <param name="skillDetailsDTO">Object parameter that contains all the information regarding the new skill</param>
     [HttpPost("AddNewSkill")]
     public async Task<ActionResult<ResponseDTO>> AddNewSkill([FromBody]SkillDetailsDTO skillDetailsDTO) 

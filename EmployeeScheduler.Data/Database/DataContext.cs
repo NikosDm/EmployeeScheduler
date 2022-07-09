@@ -8,10 +8,15 @@ public class DataContext: DbContext
     public DataContext(DbContextOptions options): base(options) { }
     public DbSet<Skill> Skills { get; set; }
     public DbSet<Employee> Employees { get; set; }
+    public DbSet<AuditTrail> AuditTrails { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder) 
     {
         base.OnModelCreating(builder);
+
+        builder.Entity<AuditTrail>()
+            .Property(x => x.AudiTrailID)
+            .HasDefaultValueSql("NEWID()");
         
         builder.Entity<Employee>()
             .Property(x => x.EmployeeID)

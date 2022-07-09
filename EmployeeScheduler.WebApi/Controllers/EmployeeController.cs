@@ -67,6 +67,28 @@ public class EmployeeController : BaseApiController
     /// <summary>
     /// Action that adds a new employee
     /// </summary>
+    /// <remarks>
+    /// Same request data   
+    ///     {
+    ///         "firstName": "Nikos",
+    ///         "lastName": "Thoma",
+    ///         "jobTitle": "Developer",
+    ///         "email": "adas@asda.com",
+    ///         "dateOfBirth": "1993-07-09T01:42:44.591Z",
+    ///         "hiringDate": "2019-07-09T01:42:44.592Z",
+    ///         "employeeType": 1,
+    ///         "skills": [
+    ///             {
+    /// 	            "skillID": null,
+    ///                 "skill": {
+    ///                     "title": "NewSkill",
+    ///                     "description": "New Skill Desc",
+    ///                     "type": 1
+    ///                 }
+    ///             }
+    ///         ]
+    ///     }
+    /// </remarks>
     /// <param name="employeeDetailsDTO">Object parameter that contains all the information regarding the new employee</param>
     [HttpPost("AddNewEmployee")]
     public async Task<ActionResult<ResponseDTO>> AddNewEmployee([FromBody]EmployeeDetailsDTO employeeDetailsDTO) 
@@ -92,6 +114,29 @@ public class EmployeeController : BaseApiController
     /// <summary>
     /// Action that updates the information of a specific employee
     /// </summary>
+    /// <remarks>
+    /// Same request data   
+    ///     {
+    ///         "emloyeeID": "EMPLOYEE_ID_VALUE",
+    ///         "firstName": "Nikos",
+    ///         "lastName": "Thoma",
+    ///         "jobTitle": "Developer",
+    ///         "email": "adas@asda.com",
+    ///         "dateOfBirth": "1993-07-09T01:42:44.591Z",
+    ///         "hiringDate": "2019-07-09T01:42:44.592Z",
+    ///         "employeeType": 1,
+    ///         "skills": [
+    ///             {
+    /// 	            "skillID": null,
+    ///                 "skill": {
+    ///                     "title": "NewSkill",
+    ///                     "description": "New Skill Desc",
+    ///                     "type": 1
+    ///                 }
+    ///             }
+    ///         ]
+    ///     }
+    /// </remarks>
     /// <param name="employeeDetailsDTO">Object parameter that contains all the updated information regarding the existing employee</param>
     [HttpPut("UpdateEmployee")]
     public async Task<ResponseDTO> UpdateEmployee([FromBody]EmployeeDetailsDTO employeeDetailsDTO) 

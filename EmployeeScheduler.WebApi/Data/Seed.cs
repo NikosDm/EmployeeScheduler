@@ -16,73 +16,95 @@ public class Seed
         {
             new Skill() { Title = "Web development", 
             Description = "The abilitiy to develop web application using various web technologies such as HTML, CSS and Javascript",
-            Type = SkillType.TechnicalSkill },
+            Type = SkillType.TechnicalSkill,
+            CreateDate = DateTime.Now },
             new Skill() { Title = "Microsoft Office", 
             Description = "The abilitiy to with microsoft office tools like Excel and Power point",
-            Type = SkillType.TechnicalSkill },
+            Type = SkillType.TechnicalSkill,
+            CreateDate = DateTime.Now },
             new Skill() { Title = "Database management", 
             Description = "Working either with relation or non relational database for managing applications data",
-            Type = SkillType.TechnicalSkill },
+            Type = SkillType.TechnicalSkill,
+            CreateDate = DateTime.Now },
             new Skill() { Title = "Technical support", 
             Description = "Resolve technical problems regarding computer or any other technical operations",
-            Type = SkillType.TechnicalSkill },
+            Type = SkillType.TechnicalSkill,
+            CreateDate = DateTime.Now },
             new Skill() { Title = "Backend development", 
             Description = "The abilitiy to develop server side application using various technologies such as .NET or Java technologies",
-            Type = SkillType.TechnicalSkill },
+            Type = SkillType.TechnicalSkill,
+            CreateDate = DateTime.Now },
             new Skill() { Title = "Basic computer skills", 
             Description = "Basic knowledge of using a computer",
-            Type = SkillType.TechnicalSkill },
+            Type = SkillType.TechnicalSkill,
+            CreateDate = DateTime.Now },
             new Skill() { Title = "Operating system", 
             Description = "Knowledge of a specific operating system like Windows or Linux",
-            Type = SkillType.TechnicalSkill }, //6
+            Type = SkillType.TechnicalSkill,
+            CreateDate = DateTime.Now }, //6
 
             new Skill() { Title = "Communication skills", 
             Description = "Listen and say information clearly when you speak or write",
-            Type = SkillType.SoftSkill },
+            Type = SkillType.SoftSkill,
+            CreateDate = DateTime.Now },
             new Skill() { Title = "Teamwork", 
             Description = "Collaborate with other people in order to achieve some goals",
-            Type = SkillType.SoftSkill },
+            Type = SkillType.SoftSkill,
+            CreateDate = DateTime.Now },
             new Skill() { Title = "Motivation", 
             Description = "Willingness to acquire new skills, improve current ones and perform as better as possible during work",
-            Type = SkillType.SoftSkill },
+            Type = SkillType.SoftSkill,
+            CreateDate = DateTime.Now },
             new Skill() { Title = "Self-management", 
             Description = "The ability to manage personal work and time",
-            Type = SkillType.SoftSkill },
+            Type = SkillType.SoftSkill,
+            CreateDate = DateTime.Now },
             new Skill() { Title = "Time management", 
             Description = "Managing time, prioritizing tasks and meeting deadlines",
-            Type = SkillType.SoftSkill },
+            Type = SkillType.SoftSkill,
+            CreateDate = DateTime.Now },
             new Skill() { Title = "Foreign language speaker", 
             Description = "Knowledge of communicating on foreign languages",
-            Type = SkillType.SoftSkill },
+            Type = SkillType.SoftSkill,
+            CreateDate = DateTime.Now },
             new Skill() { Title = "Openess to feeback", 
             Description = "Open to receive either positive or negative feedback",
-            Type = SkillType.SoftSkill }, // 13
+            Type = SkillType.SoftSkill,
+            CreateDate = DateTime.Now }, // 13
 
             new Skill() { Title = "Team leadership", 
             Description = "Being responsible of a group of people",
-            Type = SkillType.LeadershipSkill },
+            Type = SkillType.LeadershipSkill,
+            CreateDate = DateTime.Now },
             new Skill() { Title = "Project planning", 
             Description = "Plan all the phases of a project from implementation to delivery in terms of time and workforce",
-            Type = SkillType.LeadershipSkill },
+            Type = SkillType.LeadershipSkill,
+            CreateDate = DateTime.Now },
             new Skill() { Title = "Recruiting skills", 
             Description = "Determine whether a candidate is suitable for joining the team or not",
-            Type = SkillType.LeadershipSkill },
+            Type = SkillType.LeadershipSkill,
+            CreateDate = DateTime.Now },
             new Skill() { Title = "Building trust", 
             Description = "Be a trustworthy and reliable leader",
-            Type = SkillType.LeadershipSkill },
+            Type = SkillType.LeadershipSkill,
+            CreateDate = DateTime.Now },
             new Skill() { Title = "Assess employees' skills", 
             Description = "Discover employees' weaknesses and strengths",
-            Type = SkillType.LeadershipSkill },
+            Type = SkillType.LeadershipSkill,
+            CreateDate = DateTime.Now },
             new Skill() { Title = "Motivate employees", 
             Description = "Make employees perform better and grow as professionals",
-            Type = SkillType.LeadershipSkill },
+            Type = SkillType.LeadershipSkill,
+            CreateDate = DateTime.Now },
             new Skill() { Title = "Empathy", 
             Description = "Understand employees' problems and give them advice on how to solve them",
-            Type = SkillType.LeadershipSkill }, // 20
+            Type = SkillType.LeadershipSkill,
+            CreateDate = DateTime.Now }, // 20
 
             new Skill() { Title = "Advanced computer skills", 
             Description = "Advanced skills of using a computer",
-            Type = SkillType.TechnicalSkill },
+            Type = SkillType.TechnicalSkill,
+            CreateDate = DateTime.Now },
         };
 
         var Employees = new List<Employee>() {
@@ -95,7 +117,8 @@ public class Seed
                     new EmployeeSkill { Skill = skills[6] }, 
                     new EmployeeSkill { Skill = skills[8] }, 
                     new EmployeeSkill { Skill = skills[9] }, 
-                }
+                },
+                CreateDate = DateTime.Now
             },
             new Employee { FirstName = "Scott", LastName = "Ian", DateOfBirth = new DateTime(1993, 6, 2), 
                 JobTitle = "Backend developer", HiringDate = new DateTime(2021, 10, 2), EmployeeType = EmploymentType.FullTime, 
@@ -106,7 +129,8 @@ public class Seed
                     new EmployeeSkill { Skill = skills[6] }, 
                     new EmployeeSkill { Skill = skills[8] }, 
                     new EmployeeSkill { Skill = skills[9] }, 
-                }
+                },
+                CreateDate = DateTime.Now
             },
             new Employee { FirstName = "George", LastName = "Larson", DateOfBirth = new DateTime(1993, 2, 10), 
                 JobTitle = "Full stack developer", HiringDate = new DateTime(2021, 11, 2), EmployeeType = EmploymentType.FullTime, 
@@ -119,7 +143,8 @@ public class Seed
                     new EmployeeSkill { Skill = skills[6] }, 
                     new EmployeeSkill { Skill = skills[8] }, 
                     new EmployeeSkill { Skill = skills[9] }, 
-                }
+                },
+                CreateDate = DateTime.Now
             },
             new Employee { FirstName = "John", LastName = "Stevenson", DateOfBirth = new DateTime(1993, 5, 10), 
                 JobTitle = "Database developer", HiringDate = new DateTime(2020, 11, 2), EmployeeType = EmploymentType.FullTime, 
@@ -130,7 +155,8 @@ public class Seed
                     new EmployeeSkill { Skill = skills[6] }, 
                     new EmployeeSkill { Skill = skills[8] }, 
                     new EmployeeSkill { Skill = skills[9] }, 
-                }
+                },
+                CreateDate = DateTime.Now
             },
             new Employee { FirstName = "Michael", LastName = "Muller", DateOfBirth = new DateTime(2000, 7, 10), 
                 JobTitle = "Junior Web Developer", HiringDate = new DateTime(2022, 6, 2), EmployeeType = EmploymentType.Internship, 
@@ -141,7 +167,8 @@ public class Seed
                     new EmployeeSkill { Skill = skills[6] }, 
                     new EmployeeSkill { Skill = skills[8] }, 
                     new EmployeeSkill { Skill = skills[9] }, 
-                }
+                },
+                CreateDate = DateTime.Now
             },
             new Employee { FirstName = "Nick", LastName = "Scott", DateOfBirth = new DateTime(2000, 7, 10), 
                 JobTitle = "QA engineer", HiringDate = new DateTime(2022, 6, 2), EmployeeType = EmploymentType.PartTime, 
@@ -154,7 +181,8 @@ public class Seed
                     new EmployeeSkill { Skill = skills[6] }, 
                     new EmployeeSkill { Skill = skills[8] }, 
                     new EmployeeSkill { Skill = skills[9] }, 
-                }
+                },
+                CreateDate = DateTime.Now
             },
             new Employee { FirstName = "Selina", LastName = "Turner", DateOfBirth = new DateTime(1990, 1, 10), 
                 JobTitle = "Team Leader of Development team", HiringDate = new DateTime(2016, 6, 2), EmployeeType = EmploymentType.FullTime, 
@@ -175,7 +203,8 @@ public class Seed
                     new EmployeeSkill { Skill = skills[18] }, 
                     new EmployeeSkill { Skill = skills[19] }, 
                     new EmployeeSkill { Skill = skills[20] },
-                }
+                },
+                CreateDate = DateTime.Now
             },
             new Employee { FirstName = "Gina", LastName = "Meriot", DateOfBirth = new DateTime(1997, 4, 25), 
                 JobTitle = "Accountant", HiringDate = new DateTime(2018, 6, 2), EmployeeType = EmploymentType.FullTime, 
@@ -185,7 +214,8 @@ public class Seed
                     new EmployeeSkill { Skill = skills[6] }, 
                     new EmployeeSkill { Skill = skills[7] }, 
                     new EmployeeSkill { Skill = skills[12] }, 
-                }
+                },
+                CreateDate = DateTime.Now
             },
             new Employee { FirstName = "Maria", LastName = "Tron", DateOfBirth = new DateTime(1989, 6, 25), 
                 JobTitle = "Product Manager", HiringDate = new DateTime(2018, 6, 2), EmployeeType = EmploymentType.FullTime, 
@@ -197,7 +227,8 @@ public class Seed
                     new EmployeeSkill { Skill = skills[18] }, 
                     new EmployeeSkill { Skill = skills[19] }, 
                     new EmployeeSkill { Skill = skills[20] }, 
-                }
+                },
+                CreateDate = DateTime.Now
             },
             new Employee { FirstName = "Brianna", LastName = "Shamalt", DateOfBirth = new DateTime(1992, 1, 25), 
                 JobTitle = "IT Support Administrator", HiringDate = new DateTime(2017, 6, 2), EmployeeType = EmploymentType.PartTime, 
@@ -209,7 +240,8 @@ public class Seed
                     new EmployeeSkill { Skill = skills[7] }, 
                     new EmployeeSkill { Skill = skills[10] }, 
                     new EmployeeSkill { Skill = skills[11] }, 
-                }
+                },
+                CreateDate = DateTime.Now
             },
             new Employee { FirstName = "Rita", LastName = "Tucker", DateOfBirth = new DateTime(1988, 1, 20), 
                 JobTitle = "IT Support Manager", HiringDate = new DateTime(2015, 6, 2), EmployeeType = EmploymentType.FullTime, 
@@ -228,7 +260,8 @@ public class Seed
                     new EmployeeSkill { Skill = skills[19] }, 
                     new EmployeeSkill { Skill = skills[20] }, 
                     new EmployeeSkill { Skill = skills[21] },
-                }
+                },
+                CreateDate = DateTime.Now
             },
             new Employee { FirstName = "Ermina", LastName = "Steiger", DateOfBirth = new DateTime(1991, 1, 20), 
                 JobTitle = "HR Consultant", HiringDate = new DateTime(2017, 6, 2), EmployeeType = EmploymentType.FullTime, 
@@ -242,7 +275,8 @@ public class Seed
                     new EmployeeSkill { Skill = skills[11] }, 
                     new EmployeeSkill { Skill = skills[12] }, 
                     new EmployeeSkill { Skill = skills[13] }, 
-                }
+                },
+                CreateDate = DateTime.Now
             },
             new Employee { FirstName = "Uri", LastName = "Chumpken", DateOfBirth = new DateTime(1989, 1, 20), 
                 JobTitle = "HR Manager", HiringDate = new DateTime(2012, 6, 2), EmployeeType = EmploymentType.FullTime, 
@@ -263,7 +297,8 @@ public class Seed
                     new EmployeeSkill { Skill = skills[18] }, 
                     new EmployeeSkill { Skill = skills[19] }, 
                     new EmployeeSkill { Skill = skills[20] },
-                }
+                },
+                CreateDate = DateTime.Now
             },
             new Employee { FirstName = "Mohammed", LastName = "Ali", DateOfBirth = new DateTime(1994, 5, 21), 
                 JobTitle = "Customer Success Consultant", HiringDate = new DateTime(2018, 9, 2), EmployeeType = EmploymentType.FullTime, 
@@ -275,7 +310,8 @@ public class Seed
                     new EmployeeSkill { Skill = skills[11] }, 
                     new EmployeeSkill { Skill = skills[12] }, 
                     new EmployeeSkill { Skill = skills[13] }, 
-                }
+                },
+                CreateDate = DateTime.Now
             },
             new Employee { FirstName = "Yussuf", LastName = "Sharawi", DateOfBirth = new DateTime(1994, 5, 21), 
                 JobTitle = "Customer Success Manager", HiringDate = new DateTime(2018, 9, 2), EmployeeType = EmploymentType.FullTime, 
@@ -294,7 +330,8 @@ public class Seed
                     new EmployeeSkill { Skill = skills[18] }, 
                     new EmployeeSkill { Skill = skills[19] }, 
                     new EmployeeSkill { Skill = skills[20] },
-                }
+                },
+                CreateDate = DateTime.Now
             },
         };
 

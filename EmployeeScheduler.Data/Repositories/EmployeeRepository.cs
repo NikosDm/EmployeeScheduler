@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EmployeeScheduler.Data.Database;
+using EmployeeScheduler.Data.Helpers;
 using EmployeeScheduler.Models.Entities;
 using EmployeeScheduler.Models.Helpers;
 using EmployeeScheduler.Models.Interfaces;
@@ -22,6 +23,11 @@ public class EmployeeRepository : IEmployeeRepository
     {
         employee.CreateDate = DateTime.Now;
         await _dbContext.Employees.AddAsync(employee);
+
+        var result = await _dbContext.SaveChangesAsync() > 0;
+
+        if (result)
+            await AuditTrailHelper<Employee>.AddAuditTrailRecordAsync(employee, "CREATE", _dbContext);
     }
 
     public async Task DeleteEmployees(IEnumerable<string> employeeIDs)
@@ -75,6 +81,11 @@ public class EmployeeRepository : IEmployeeRepository
         employee.UpdateDate = DateTime.Now;
 
         _dbContext.Employees.Update(employee);
+
+        var result = await _dbContext.SaveChangesAsync() > 0;
+
+        if (result)
+            await AuditTrailHelper<Employee>.AddAuditTrailRecordAsync(employee, "UPDATE", _dbContext);
 
         return await Task.FromResult(employee);
     }

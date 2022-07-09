@@ -26,8 +26,6 @@ public class SkillService : ISkillService
     {
         var skill = _mapper.Map<Skill>(skillDetailsDTO);
 
-        skill.CreateDate = DateTime.Now;
-
         await _unitOfWork.skillRepository.AddNewSkill(skill);
 
         if (_unitOfWork.HasChanges()) return await _unitOfWork.Complete();
