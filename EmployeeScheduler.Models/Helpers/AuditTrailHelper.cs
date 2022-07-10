@@ -1,29 +1,21 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using EmployeeScheduler.Data.Database;
 using System.ComponentModel.DataAnnotations;
 using EmployeeScheduler.Models.Entities;
 
-namespace EmployeeScheduler.Data.Helpers;
+namespace EmployeeScheduler.Models.Helpers;
 
 /*
-The static class AudiTrailHelper inserts records on AuditTrail table 
+The static class AudiTrailHelper creates AuditTrail entities
 which have to do with any changes (creation or update) on entities Employee and Skill.
 
-For that reason, I created a static class which will work for both entities (or any other entity that may be created in the future)
-which contains only one method which does nothing but create audit trail record and add it to the database.
-
-I could use the repository pattern just like I did with Employee and Skill but since I only want to insert records regarding any change that may
-have occured and I want to work with multiple models, I created for that reason a static class with a static method that does the following: 
+Since I want to work with multiple entities (in that case two entities), I created a static class 
+with a static method that creates AuditTrail instances depending on the type that is given. More specifically: 
 -using reflection I retrieve the type, the key and its value of the type. 
 -I retrieve the data of each entity by using method ToString() which is overriden on each entity to receive the details of the entity.
--using the DbContext I insert an AuditTrail records on the database. 
+-having gathered all the data I create and return an instance of AuditTrail.
 */
 public static class AuditTrailHelper<T>
 {
-    public static async Task AddAuditTrailRecordAsync(T entity, string action, DataContext dataContext)
+    public static async Task<AuditTrail> AddAuditTrailRecordAsync(T entity, string action)
     {
         string type = typeof(T).Name;
         string entityIDValue = string.Empty;
@@ -44,7 +36,7 @@ public static class AuditTrailHelper<T>
             } 
         }
 
-        await dataContext.AuditTrails.AddAsync(new AuditTrail(type, entityIDValue, action, data));
+        return await Task.FromResult(new AuditTrail(type, entityIDValue, action, data));
     }   
 }
 

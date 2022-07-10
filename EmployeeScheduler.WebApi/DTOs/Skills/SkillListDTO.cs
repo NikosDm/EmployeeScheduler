@@ -10,6 +10,7 @@ public class SkillListDTO
 {
     public string SkillID { get; set; }
     public string Title { get; set; }
+    public string Description { get; set; }
     public SkillType Type { get; set; }
     public DateTime CreateDate { get; set; }
 }

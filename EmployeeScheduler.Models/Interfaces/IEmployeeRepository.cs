@@ -12,5 +12,6 @@ public interface IEmployeeRepository
     Task<Employee> FetchEmployeeDetails(string EmployeeID);
     Task AddNewEmployee(Employee employee);
     Task<Employee> UpdateEmployee(Employee employee);
-    Task DeleteEmployees(IEnumerable<string> employeeIDs);
+    Task DeleteEmployees(ICollection<Employee> employees);
+    Task<ICollection<Employee>> FetchEmployeesByIds(ICollection<string> employeeIDs);
 }

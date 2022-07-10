@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EmployeeScheduler.Data.Database;
-using EmployeeScheduler.Data.Helpers;
 using EmployeeScheduler.Models.Entities;
 using EmployeeScheduler.Models.Helpers;
 using EmployeeScheduler.Models.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeScheduler.Data.Repositories;
+
 public class EmployeeRepository : IEmployeeRepository
 {
     private readonly DataContext _dbContext;
@@ -23,18 +23,11 @@ public class EmployeeRepository : IEmployeeRepository
     {
         employee.CreateDate = DateTime.Now;
         await _dbContext.Employees.AddAsync(employee);
-
-        var result = await _dbContext.SaveChangesAsync() > 0;
-
-        if (result)
-            await AuditTrailHelper<Employee>.AddAuditTrailRecordAsync(employee, "CREATE", _dbContext);
     }
 
-    public async Task DeleteEmployees(IEnumerable<string> employeeIDs)
+    public async Task DeleteEmployees(ICollection<Employee> employees)
     {
-        var employees = await _dbContext.Employees.Include(p => p.Skills).Where(x => employeeIDs.Any(y => x.EmployeeID == y)).ToListAsync();
-
-        _dbContext.Employees.RemoveRange(employees);
+        await Task.Run(() => _dbContext.Employees.RemoveRange(employees));
     }
 
     public async Task<Employee> FetchEmployeeDetails(string EmployeeID)
@@ -61,6 +54,7 @@ public class EmployeeRepository : IEmployeeRepository
             {
                 "FirstName" => query.OrderByDescending(x => x.FirstName),
                 "LastName" => query.OrderByDescending(x => x.LastName),
+                "HiringDate" => query.OrderByDescending(x => x.HiringDate),
                 "JobTitle" => query.OrderByDescending(x => x.JobTitle),
                 _ => query.OrderByDescending(x => x.CreateDate),
             };
@@ -69,6 +63,7 @@ public class EmployeeRepository : IEmployeeRepository
             {
                 "FirstName" => query.OrderBy(x => x.FirstName),
                 "LastName" => query.OrderBy(x => x.LastName),
+                "HiringDate" => query.OrderBy(x => x.HiringDate),
                 "JobTitle" => query.OrderBy(x => x.JobTitle),
                 _ => query.OrderByDescending(x => x.CreateDate),
             };
@@ -76,16 +71,16 @@ public class EmployeeRepository : IEmployeeRepository
         return await query.ToListAsync();
     }
 
+    public async Task<ICollection<Employee>> FetchEmployeesByIds(ICollection<string> employeeIDs) 
+    {
+        return await _dbContext.Employees.Include(p => p.Skills).Where(x => employeeIDs.Any(y => x.EmployeeID == y)).ToListAsync();
+    }
+
     public async Task<Employee> UpdateEmployee(Employee employee)
     {
         employee.UpdateDate = DateTime.Now;
 
         _dbContext.Employees.Update(employee);
-
-        var result = await _dbContext.SaveChangesAsync() > 0;
-
-        if (result)
-            await AuditTrailHelper<Employee>.AddAuditTrailRecordAsync(employee, "UPDATE", _dbContext);
 
         return await Task.FromResult(employee);
     }

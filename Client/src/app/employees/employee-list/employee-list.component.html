@@ -6,11 +6,20 @@
     skills.
   </p>
   <p>
-    You can either delete employees one by one or delete multple employees by
-    selecting the ones you want using the checkbox next to the First Name column
-    and then pressing Delete Selected Employees button.
+    You can either delete employees one by one by entering on their detail page
+    using the button on table or delete multple employees by selecting the ones
+    you want using the checkbox next to the First Name column and then pressing
+    Delete Selected Employees button.
   </p>
   <br />
+  <div class="text-left mb-4 mt-2" *ngIf="!loading && employeeList.length > 0">
+    {{
+      employeeList.length +
+        (employeeList.length == 1
+          ? " employee has been found"
+          : " employees have been found")
+    }}
+  </div>
   <div>
     <form
       #form="ngForm"
@@ -128,7 +137,7 @@
       </thead>
       <tbody>
         <tr *ngIf="employeeList.length == 0">
-          <td class="text-center" colspan="5">There are no employees</td>
+          <td class="text-center" colspan="6">There are no employees</td>
         </tr>
         <ng-container *ngIf="employeeList.length > 0">
           <tr *ngFor="let employee of employeeList">

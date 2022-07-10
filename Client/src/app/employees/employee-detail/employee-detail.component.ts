@@ -26,6 +26,7 @@ export class EmployeeDetailComponent implements OnInit {
   skillModalRef: BsModalRef;
   employeeID: string;
   loading: boolean;
+  disableActionButton: boolean;
   employeeSkills: EmployeeSkills[];
   employmentTypes: any[] = [
     { value: 1, text: 'Full Time' },
@@ -58,6 +59,8 @@ export class EmployeeDetailComponent implements OnInit {
 
   checkLaterDate(dateParam: string): ValidatorFn {
     return (control: AbstractControl) => {
+      if (!control?.parent?.controls[dateParam].value) return null;
+
       return control?.value <= control?.parent?.controls[dateParam].value
         ? null
         : { isLater: true };
@@ -205,6 +208,7 @@ export class EmployeeDetailComponent implements OnInit {
       this.service.deleteEmployee(this.employeeID).subscribe(
         (result) => {
           if (result.isSuccess) {
+            this.disableActionButton = true;
             this.toastr.success(
               'Employee was deleted successfully. You will be redirected to Employee List page in 2 seconds'
             );
@@ -245,6 +249,7 @@ export class EmployeeDetailComponent implements OnInit {
     this.service.addNewEmployee(employeeObject).subscribe(
       (result) => {
         if (result) {
+          this.disableActionButton = true;
           this.toastr.success(
             'Employee was added successfully. You will be redirected to Employee List page in 2 seconds'
           );

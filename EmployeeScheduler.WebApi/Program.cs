@@ -4,27 +4,29 @@ using EmployeeScheduler.Data.Database;
 using EmployeeScheduler.Data.Repositories;
 using EmployeeScheduler.Models.Interfaces;
 using EmployeeScheduler.WebApi.Data;
-using EmployeeScheduler.WebApi.Employees.Interfaces;
+using EmployeeScheduler.WebApi.Interfaces.Employees;
 using EmployeeScheduler.WebApi.Helpers;
 using EmployeeScheduler.WebApi.Interfaces.Skills;
 using EmployeeScheduler.WebApi.Services.Employees;
 using EmployeeScheduler.WebApi.Services.Skills;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using EmployeeScheduler.WebApi.Interfaces.AuditTrails;
+using EmployeeScheduler.WebApi.Services.AuditTrails;
 
 var builder = WebApplication.CreateBuilder(args);
 var mapper = AutoMapperProfile.RegisterAutoMapper().CreateMapper();
 
-builder.Services.AddControllers().AddJsonOptions(x =>
-                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+builder.Services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped<ISkillService, SkillService>();
+builder.Services.AddScoped<IAuditTrailService, AuditTrailService>();
 
-builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),  b => b.MigrationsAssembly("EmployeeScheduler.WebApi")));
+// builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),  b => b.MigrationsAssembly("EmployeeScheduler.WebApi")));
 
 /*I am using in memory database for my testing purposes. */
-// builder.Services.AddDbContext<DataContext>(options => options.UseInMemoryDatabase(databaseName: "EmployeeScheduler"));
+builder.Services.AddDbContext<DataContext>(options => options.UseInMemoryDatabase(databaseName: "EmployeeScheduler"));
 
 builder.Services.AddSwaggerGen(options =>
 {
@@ -49,7 +51,8 @@ try
 {
     using var scope = app.Services.CreateScope();
     var dataContext = scope.ServiceProvider.GetRequiredService<DataContext>();
-    await dataContext.Database.MigrateAsync();
+    
+    // await dataContext.Database.MigrateAsync();
     await Seed.SeedData(dataContext);
 }
 catch(Exception ex)

@@ -28,7 +28,7 @@
       ></app-text-area>
       <div class="submit-button-container">
         <button
-          [disabled]="!skillDetailsForm.valid"
+          [disabled]="!skillDetailsForm.valid || disableActionButton"
           class="btn btn-success submit-button-styles"
           type="submit"
         >
@@ -36,6 +36,7 @@
         </button>
         <button
           *ngIf="!isNewSkill"
+          [disabled]="disableActionButton"
           class="btn btn-danger submit-button-styles ml-4"
           type="button"
           (click)="deleteSkill()"

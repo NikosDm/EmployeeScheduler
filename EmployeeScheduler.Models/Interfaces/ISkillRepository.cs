@@ -12,5 +12,5 @@ public interface ISkillRepository
     Task<Skill> FetchSkillDetails(string SkillID);
     Task AddNewSkill(Skill skill);
     Task<Skill> UpdateSkill(Skill skill);
-    Task DeleteSkill(string SkillID);
+    Task DeleteSkill(Skill skill);
 }

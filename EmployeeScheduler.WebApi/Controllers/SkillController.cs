@@ -106,7 +106,7 @@ public class SkillController : BaseApiController
     /// <remarks>
     /// Same request data  
     /// {
-    ///    "skillID": "SKILL_ID"
+    ///    "skillID": "SKILL_ID",
     ///    "title": "New Skill Title",
     ///    "description": "Details about new skill",
     ///    "type": 1

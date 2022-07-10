@@ -1,7 +1,14 @@
 <div class="container container-styles" *ngIf="!loading">
   <h3>Skills list</h3>
-  <p>All the available skills that the employees can possess</p>
-  <br />
+  <p>All the available skills that the employees can possess.</p>
+  <div class="text-left mb-4 mt-2" *ngIf="!loading && skills.length > 0">
+    {{
+      skills.length +
+        (skills.length == 1
+          ? " skill has been found"
+          : " skills have been found")
+    }}
+  </div>
   <div class="add-skill-button-styles">
     <button class="btn btn-info mr-2" type="button" (click)="exportSkills()">
       Export skills

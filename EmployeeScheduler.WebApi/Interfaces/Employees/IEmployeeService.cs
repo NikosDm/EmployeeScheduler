@@ -1,11 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using EmployeeScheduler.Models.Helpers;
 using EmployeeScheduler.WebApi.DTOs.Employees;
 
-namespace EmployeeScheduler.WebApi.Employees.Interfaces;
+namespace EmployeeScheduler.WebApi.Interfaces.Employees;
 
 public interface IEmployeeService
 {
@@ -13,5 +9,5 @@ public interface IEmployeeService
     Task<EmployeeDetailsDTO> FetchEmployeeByID(string EmployeeID);
     Task<bool> AddNewEmployee(EmployeeDetailsDTO employeeDetailsDTO);
     Task<EmployeeDetailsDTO> UpdateEmployee(EmployeeDetailsDTO employeeDetailsDTO);
-    Task<bool> DeleteEmployees(IEnumerable<string> employeeIDs);
+    Task<bool> DeleteEmployees(ICollection<string> employeeIDs);
 }

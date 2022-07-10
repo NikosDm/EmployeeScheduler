@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using EmployeeScheduler.Models.Entities;
+using EmployeeScheduler.Models.Helpers;
 using EmployeeScheduler.Models.Interfaces;
 using EmployeeScheduler.WebApi.DTOs.Skills;
 using EmployeeScheduler.WebApi.Interfaces.Skills;
@@ -28,6 +29,11 @@ public class SkillService : ISkillService
 
         await _unitOfWork.skillRepository.AddNewSkill(skill);
 
+        /*Storing the employee entity first so that I can get the generated KEY*/
+        if (_unitOfWork.HasChanges()) await _unitOfWork.Complete();
+
+        await InsertAuditTrailRecord("CREATE", skill);
+
         if (_unitOfWork.HasChanges()) return await _unitOfWork.Complete();
 
         return false;
@@ -35,7 +41,11 @@ public class SkillService : ISkillService
 
     public async Task<bool> DeleteSkill(string SkillID)
     {
-        await _unitOfWork.skillRepository.DeleteSkill(SkillID);
+        var skill = await GetSkill(SkillID);
+
+        await _unitOfWork.skillRepository.DeleteSkill(skill);
+
+        await InsertAuditTrailRecord("DELETE", skill);
         
         if (_unitOfWork.HasChanges()) return await _unitOfWork.Complete();
 
@@ -58,8 +68,8 @@ public class SkillService : ISkillService
             Title = x.Title,
             Description = x.Description,
             Type = x.GetTypeDescription(),
-            CreatedAt = x.CreateDate.ToString("dd/MM/yyyy"),
-            LastUpdateAt = x.UpdateDate.ToString("dd/MM/yyyy")
+            CreatedAt = x.CreateDate.ToString("dd/MM/yyyy HH:mm:ss"),
+            LastUpdateAt = x.UpdateDate.ToString("dd/MM/yyyy HH:mm:ss")
         });
     }
 
@@ -80,6 +90,8 @@ public class SkillService : ISkillService
 
         skill = await _unitOfWork.skillRepository.UpdateSkill(skill);
         
+        await InsertAuditTrailRecord("UPDATE", skill);
+        
         if (_unitOfWork.HasChanges()) await _unitOfWork.Complete();
 
         return _mapper.Map<SkillDetailsDTO>(skill);
@@ -92,6 +104,13 @@ public class SkillService : ISkillService
         if (skill == null) throw new Exception("Skill does not exist");
 
         return skill;
+    }
+    
+    private async Task InsertAuditTrailRecord(string action, Skill skill) 
+    {
+        var auditTrail = await AuditTrailHelper<Skill>.AddAuditTrailRecordAsync(skill, action);
+
+        await _unitOfWork.auditTrailRepository.AddNewAuditTrailRecord(auditTrail);
     }
 }
 

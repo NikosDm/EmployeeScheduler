@@ -1,7 +1,7 @@
 using EmployeeScheduler.Models.Helpers;
 using EmployeeScheduler.WebApi.DTOs;
 using EmployeeScheduler.WebApi.DTOs.Employees;
-using EmployeeScheduler.WebApi.Employees.Interfaces;
+using EmployeeScheduler.WebApi.Interfaces.Employees;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EmployeeScheduler.WebApi.Controllers;
@@ -21,10 +21,18 @@ public class EmployeeController : BaseApiController
         _employeeService = employeeService;
         _response = new ResponseDTO();
     }
-    
+
     /// <summary>
     /// Action that retrieves the employees based on the filters given
     /// </summary>
+    /// <remarks>
+    /// Same request data:   
+    /// 
+    ///     SearchValue: John
+    ///     SortDirection: DESC // If the user inserts a value other than DESC then by default I will use ASC during ordering
+    ///     SortColumn: HiringDate
+    ///     
+    /// </remarks>
     /// <param name="filterParams">Object parameter used for filtering the list of employees</param>
     [HttpGet("GetAllEmployees")]
     public async Task<ActionResult<ResponseDTO>> GetAllEmployees([FromQuery]FilterParams filterParams) 
@@ -117,7 +125,7 @@ public class EmployeeController : BaseApiController
     /// <remarks>
     /// Same request data   
     ///     {
-    ///         "emloyeeID": "EMPLOYEE_ID_VALUE",
+    ///         "employeeID": "EMPLOYEE_ID_VALUE",
     ///         "firstName": "Nikos",
     ///         "lastName": "Thoma",
     ///         "jobTitle": "Developer",
@@ -182,7 +190,7 @@ public class EmployeeController : BaseApiController
     /// </summary>
     /// <param name="employeeIDs">List of selected employee IDs which should be deleted</param>
     [HttpDelete("DeleteMultipleEmployees")]
-    public async Task<ResponseDTO> DeleteMultipleEmployees([FromBody]IEnumerable<string> employeeIDs) 
+    public async Task<ResponseDTO> DeleteMultipleEmployees([FromBody]ICollection<string> employeeIDs) 
     {
         try 
         {

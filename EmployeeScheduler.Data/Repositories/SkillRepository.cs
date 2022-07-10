@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EmployeeScheduler.Data.Database;
-using EmployeeScheduler.Data.Helpers;
 using EmployeeScheduler.Models.Entities;
 using EmployeeScheduler.Models.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -24,18 +23,11 @@ public class SkillRepository : ISkillRepository
         skill.CreateDate = DateTime.Now;
 
         await _dbContext.Skills.AddAsync(skill);
-
-        var result = await _dbContext.SaveChangesAsync() > 0;
-
-        if (result)
-            await AuditTrailHelper<Skill>.AddAuditTrailRecordAsync(skill, "CREATE", _dbContext);
     }
 
-    public async Task DeleteSkill(string SkillID)
+    public async Task DeleteSkill(Skill skill)
     {
-        var skill = await _dbContext.Skills.Include(p => p.EmployeeSkills).FirstOrDefaultAsync(s => s.SkillID == SkillID);
-
-        _dbContext.Skills.Remove(skill);
+        await Task.Run(() => _dbContext.Skills.Remove(skill));
     }
 
     public async Task<IEnumerable<Skill>> FetchAllSkills()
@@ -53,8 +45,6 @@ public class SkillRepository : ISkillRepository
         skill.UpdateDate = DateTime.Now;
         
         _dbContext.Skills.Update(skill);
-
-        await AuditTrailHelper<Skill>.AddAuditTrailRecordAsync(skill, "UPDATE", _dbContext);
 
         return await Task.FromResult(skill);
     }

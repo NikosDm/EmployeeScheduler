@@ -7,7 +7,7 @@ using EmployeeScheduler.Models.Entities;
 using EmployeeScheduler.Models.Helpers;
 using EmployeeScheduler.Models.Interfaces;
 using EmployeeScheduler.WebApi.DTOs.Employees;
-using EmployeeScheduler.WebApi.Employees.Interfaces;
+using EmployeeScheduler.WebApi.Interfaces.Employees;
 
 namespace EmployeeScheduler.WebApi.Services.Employees;
 
@@ -29,14 +29,26 @@ public class EmployeeService : IEmployeeService
 
         await _unitOfWork.employeeRepository.AddNewEmployee(employee);
 
+        /*Storing the employee entity first so that I can get the generated KEY*/
+        if (_unitOfWork.HasChanges()) await _unitOfWork.Complete();
+
+        await InsertAuditTrailRecord("CREATE", employee);
+
         if (_unitOfWork.HasChanges()) return await _unitOfWork.Complete();
 
         return false;
     }
 
-    public async Task<bool> DeleteEmployees(IEnumerable<string> employeeIDs)
+    public async Task<bool> DeleteEmployees(ICollection<string> employeeIDs)
     {
-        await _unitOfWork.employeeRepository.DeleteEmployees(employeeIDs);
+        var employees = await _unitOfWork.employeeRepository.FetchEmployeesByIds(employeeIDs);
+
+        if (employees.Count != employeeIDs.Count) throw new Exception("Some of the employee IDs are invalid. Please try again using valid ones");
+
+        await _unitOfWork.employeeRepository.DeleteEmployees(employees);
+
+        foreach (var employee in employees)
+            await InsertAuditTrailRecord("DELETE", employee); 
         
         if (_unitOfWork.HasChanges()) return await _unitOfWork.Complete();
 
@@ -69,6 +81,8 @@ public class EmployeeService : IEmployeeService
         employee.updateSkills(employeeDetailsDTO.Skills);
 
         employee = await _unitOfWork.employeeRepository.UpdateEmployee(employee);
+
+        await InsertAuditTrailRecord("UPDATE", employee);
         
         if (_unitOfWork.HasChanges()) await _unitOfWork.Complete();
 
@@ -82,5 +96,12 @@ public class EmployeeService : IEmployeeService
         if (employee == null) throw new Exception("Employee does not exist");
 
         return employee;
+    }
+
+    private async Task InsertAuditTrailRecord(string action, Employee employee) 
+    {
+        var auditTrail = await AuditTrailHelper<Employee>.AddAuditTrailRecordAsync(employee, action);
+
+        await _unitOfWork.auditTrailRepository.AddNewAuditTrailRecord(auditTrail);
     }
 }

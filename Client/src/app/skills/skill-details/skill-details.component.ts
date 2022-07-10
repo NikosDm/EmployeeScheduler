@@ -18,6 +18,7 @@ export class SkillDetailsComponent implements OnInit {
   loading: boolean;
   skillID: string;
   isNewSkill: boolean;
+  disableActionButton: boolean;
   buttonTitle: string;
   bsModalRef: BsModalRef;
   skillTypes: any[] = [
@@ -99,6 +100,7 @@ export class SkillDetailsComponent implements OnInit {
       this.service.deleteSkill(this.skillID).subscribe(
         (result) => {
           if (result.isSuccess) {
+            this.disableActionButton = true;
             this.toastr.success(
               'Skill was deleted successfully. You will be redirected to Skill List page in 2 seconds'
             );
@@ -134,6 +136,7 @@ export class SkillDetailsComponent implements OnInit {
     this.service.addNewSkill(skillObject).subscribe(
       (result) => {
         if (result) {
+          this.disableActionButton = true;
           this.toastr.success(
             'Skill was added successfully. You will be redirected to Skill List page in 2 seconds'
           );

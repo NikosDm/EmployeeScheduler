@@ -8,6 +8,7 @@ public interface IUnitOfWork
 {
     IEmployeeRepository employeeRepository { get; }
     ISkillRepository skillRepository { get; }
+    IAuditTrailRepository auditTrailRepository { get; }
     Task<bool> Complete();
     bool HasChanges();
 }

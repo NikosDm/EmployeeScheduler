@@ -6,6 +6,7 @@ using EmployeeScheduler.Data.Database;
 using EmployeeScheduler.Models.Interfaces;
 
 namespace EmployeeScheduler.Data.Repositories;
+
 public class UnitOfWork : IUnitOfWork
 {
     private readonly DataContext _context;
@@ -18,6 +19,8 @@ public class UnitOfWork : IUnitOfWork
     public IEmployeeRepository employeeRepository => new EmployeeRepository(_context);
 
     public ISkillRepository skillRepository => new SkillRepository(_context);
+
+    public IAuditTrailRepository auditTrailRepository => new AuditTrailRepository(_context);
 
     public async Task<bool> Complete()
     {

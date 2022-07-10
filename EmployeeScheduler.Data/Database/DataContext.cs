@@ -16,14 +16,17 @@ public class DataContext: DbContext
 
         builder.Entity<AuditTrail>()
             .Property(x => x.AudiTrailID)
+            .ValueGeneratedOnAdd()
             .HasDefaultValueSql("NEWID()");
         
         builder.Entity<Employee>()
             .Property(x => x.EmployeeID)
+            .ValueGeneratedOnAdd()
             .HasDefaultValueSql("NEWID()");
 
         builder.Entity<Skill>()
             .Property(x => x.SkillID)
+            .ValueGeneratedOnAdd()
             .HasDefaultValueSql("NEWID()");
         
         builder.Entity<EmployeeSkill>()

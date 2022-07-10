@@ -118,7 +118,7 @@
       </div>
       <div class="submit-button-container">
         <button
-          [disabled]="!employeeDetailsForm.valid"
+          [disabled]="!employeeDetailsForm.valid || disableActionButton"
           class="btn btn-success submit-button-styles"
           type="submit"
         >
@@ -126,6 +126,7 @@
         </button>
         <button
           *ngIf="!isNewEmployee"
+          [disabled]="disableActionButton"
           class="btn btn-danger submit-button-styles ml-4"
           type="button"
           (click)="deleteEmployee()"
