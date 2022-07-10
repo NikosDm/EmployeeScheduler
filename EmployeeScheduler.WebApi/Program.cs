@@ -79,6 +79,11 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
+app.UseDefaultFiles();
+app.UseStaticFiles();
+
 app.MapControllers();
+
+app.MapFallbackToController("Index", "Fallback");
 
 app.Run();
